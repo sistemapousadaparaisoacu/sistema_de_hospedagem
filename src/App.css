@@ -1,0 +1,983 @@
+.App {
+  text-align: center;
+}
+
+/* Layout flex para calcular área útil entre header e footer */
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.container-fluid {
+  flex: 1 0 auto;
+  padding-bottom: 0; /* evita área branca abaixo da sidebar */
+  /* Aproxima o conteúdo do topo, mantendo offset do header fixo */
+  padding-top: calc(var(--header-h) - 12px);
+}
+
+/* Centraliza a marca no header */
+.navbar .container-fluid { position: relative; }
+.navbar-brand-centered {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+:root {
+  --c-disponivel: #488169;
+  --c-ocupado: #4d4f4a;
+  --c-reservado: #536241;
+  --c-manutencao: #5e4531;
+  --c-light: #f8f9fa;
+  --c-text: #2E2E2E;             /* Texto modo claro */
+  /* Cores de marca (configuráveis via Dashboard > Configurações) */
+  /* Paleta Chocolate/Terracota/Bege */
+  --brand-primary: #5C4033;      /* Chocolate escuro */
+  --brand-secondary: #C44536;    /* Vermelho terracota */
+  --brand-tertiary: #E1B382;     /* Bege dourado (acento/botões) */
+  --brand-quaternary: #FDF6EC;   /* Fundo claro */
+  /* Compatibilidade com campos antigos */
+  --brand-accent: var(--brand-tertiary);
+  --brand-surface: var(--brand-tertiary);
+  --brand-muted: var(--brand-quaternary);
+  /* Estados */
+  --success: #7FB069;            /* Sucesso */
+  --warning: #F4A259;            /* Aviso */
+  --critical: #C44536;           /* Erro (usa terracota) */
+  --error: var(--critical);
+}
+
+.main-content {
+  padding: 20px;
+  height: calc(100vh - var(--header-h) - var(--footer-h));
+  overflow-y: auto; /* rola apenas o conteúdo das páginas */
+  padding-bottom: var(--footer-h); /* espaço para o footer fixo */
+}
+/* Quando há sidebar fixa, desloca o conteúdo para não sobrepor */
+.main-content.with-sidebar {
+  margin-left: var(--sidebar-w);
+}
+.main-content.with-sidebar-collapsed {
+  margin-left: var(--sidebar-w-collapsed);
+}
+
+.sidebar {
+  background-color: var(--menu-bg, var(--brand-primary));
+  color: white;
+  position: fixed; /* menu fixo na viewport */
+  top: var(--header-h);
+  bottom: var(--footer-h);
+  left: 0;
+  overflow-y: auto; /* permite rolagem quando necessário */
+  /* Oculta a barra de rolagem visual sem desabilitar a rolagem */
+  -ms-overflow-style: none; /* IE e Edge */
+  scrollbar-width: none; /* Firefox */
+  z-index: 100; /* envia o menu para trás em relação ao conteúdo */
+}
+.sidebar::-webkit-scrollbar { display: none; } /* Chrome, Safari */
+/* Permite que a lista de navegação ocupe o espaço e o logout fique no rodapé */
+.sidebar .nav { flex: 1 1 auto; }
+
+/* Modal genérico (confirmação de logout) */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+.modal-card {
+  background: #fff;
+  color: var(--c-text);
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+  padding: 16px;
+  max-width: 360px;
+  width: calc(100% - 32px);
+}
+
+/* Responsividade: telas menores ou baixas devem permitir rolagem do menu e reduzir largura */
+@media (max-width: 768px) {
+  /* Sidebar como painel deslizante */
+  .sidebar {
+    width: var(--sidebar-w);
+    transform: translateX(-100%);
+    transition: transform 0.2s ease-in-out;
+    overflow-y: auto;
+  }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar.open { box-shadow: 4px 0 14px rgba(0,0,0,0.25); }
+  /* Conteúdo ocupa toda a largura; sidebar fica sobreposto */
+  .main-content.with-sidebar { margin-left: 0; }
+  /* Overlay para capturar clique fora */
+  .sidebar-overlay { display: none; }
+  .sidebar-overlay.show {
+    display: block;
+    position: fixed;
+    top: var(--header-h);
+    left: 0; right: 0;
+    bottom: var(--footer-h);
+    background: rgba(0,0,0,0.35);
+    z-index: 99;
+  }
+}
+@media (max-height: 700px) {
+  .sidebar { overflow-y: auto; }
+}
+
+/* Garante que a linha ocupe a altura total útil da página */
+.app-row {
+  min-height: calc(100vh - var(--header-h));
+}
+
+/* Ajustes finos para mobile muito estreito */
+@media (max-width: 768px) {
+  .navbar-brand-centered {
+    position: static;
+    left: auto;
+    transform: none;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 58vw; /* evita colisão com badge e botão */
+  }
+  .navbar-theme .badge { font-size: 0.72rem; }
+.navbar-theme .btn { padding: 4px 8px; font-size: 0.82rem; }
+
+  /* Ocultar conteúdo do header, manter hambúrguer visível e remover footer */
+  :root { --header-h: 0px !important; --footer-h: 0px !important; }
+  .footer { display: none !important; }
+  .navbar-theme {
+    background: transparent !important;
+    box-shadow: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+  .navbar-brand-centered { display: none !important; }
+  .navbar-collapse { display: none !important; }
+  .navbar .container-fluid { padding-top: 0 !important; padding-bottom: 0 !important; }
+  .navbar-menu-toggle {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    left: auto;
+    z-index: 201;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2b2b2b !important; /* escuro */
+    color: #fff !important;
+    border: 1px solid rgba(255,255,255,0.15) !important;
+    border-radius: 12px;
+    box-shadow: none;
+    padding: 0;
+  }
+  .navbar-menu-toggle svg { width: 24px; height: 24px; }
+  .container-fluid { padding-top: 0 !important; }
+  .main-content { height: 100vh; padding-bottom: 0 !important; }
+}
+
+/* Hero visual do Dashboard */
+.dashboard-hero {
+  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+/* Compactar hero no dashboard */
+.dashboard-hero.mb-4 { margin-bottom: 12px !important; }
+.dashboard-hero.p-4 { padding: 12px !important; }
+
+/* Cards de gráficos com fundo alinhado à cor do header */
+.chart-card {
+  background-color: var(--surface);
+  color: var(--surface-text);
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+}
+.chart-card .card-header {
+  background: transparent;
+  border-bottom: 1px solid var(--surface-border);
+}
+.chart-card .card-body {
+  min-height: 150px;
+}
+
+/* Cards uniformes do dashboard (métricas e módulos) */
+.dashboard-card {
+  background-color: var(--surface);
+  color: var(--surface-text);
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+}
+.dashboard-card .card-body {
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+/* Tipografia mais compacta nos cards do dashboard */
+.dashboard-card h6 { font-size: 0.85rem; }
+.dashboard-card h4 { font-size: 1.05rem; }
+
+/* Garantir que os cards em uma linha tenham mesma altura */
+.equal-row > [class^="col-"] .card {
+  height: 100%;
+}
+.equal-row > .col .card {
+  height: 100%;
+}
+/* Reduzir espaçamento vertical entre linhas e colunas do dashboard */
+.row.equal-row { margin-bottom: 1rem; }
+.equal-row > [class^="col-"] { margin-bottom: 0.75rem; }
+.equal-row > .col { margin-bottom: 0.75rem; }
+
+/* Container de mini gráficos dentro dos cards dos módulos */
+.mini-chart {
+  height: 90px;
+}
+.mini-chart canvas {
+  width: 100% !important;
+}
+
+/* Logo opcional dentro do Hero do Dashboard */
+.dashboard-hero .hero-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.75);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  margin-right: 12px;
+}
+
+/* Perfil do cliente no topo da Sidebar */
+.sidebar-profile {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+.sidebar-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.25);
+}
+.sidebar-profile-name {
+  font-weight: 600;
+  color: #fff;
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+.sidebar-profile-cnpj {
+  color: #ced4da;
+  font-size: 0.8rem;
+}
+
+/* Tipo de conta abaixo da barra de separação do CNPJ */
+.sidebar-account-type { padding: 6px 12px; }
+.sidebar-account-badge {
+  background-color: var(--brand-tertiary);
+  color: #212529;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.nav-link {
+  color: white;
+}
+
+.nav-link:hover {
+  color: #fff;
+  background-color: var(--brand-secondary); /* usa terracota da paleta */
+  border-radius: 6px;
+}
+
+/* Hover consistente dos botões de header (evita fundo branco padrão do outline) */
+.navbar-theme .btn.brand-hover:hover,
+.navbar-theme .btn.btn-outline-light.brand-hover:hover {
+  background-color: var(--brand-tertiary); /* bege dourado */
+  color: #212529;
+  border-color: var(--brand-tertiary);
+}
+
+/* Página de Eventos: melhorias de layout responsivo */
+.eventos-page .eventos-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.eventos-page .eventos-toolbar .btn {
+  white-space: nowrap;
+}
+.eventos-page .table-container {
+  overflow-x: auto;
+}
+.eventos-page .evento-icon svg {
+  width: 20px;
+  height: 20px;
+}
+@media (max-width: 576px) {
+  .eventos-page .card-header h5 { margin-bottom: 0.5rem; }
+}
+
+/* Estilos de dashboard para a página Cozinha */
+.cozinha-dashboard .dashboard-header h2 {
+  font-weight: 600;
+}
+
+.stats-row .stats-card {
+  border: 1px solid #e9ecef;
+  background: #fff;
+}
+
+.stats-row .stats-card .text-muted {
+  font-size: 0.9rem;
+}
+
+.stats-row .stats-card h4 {
+  font-weight: 600;
+}
+
+/* Melhor espaçamento entre colunas do kanban */
+.cozinha-dashboard .row > [class^="col-"] .card {
+  border-radius: 10px;
+}
+
+.cozinha-dashboard .card-header h5 {
+  font-weight: 600;
+}
+
+/* Padronização dos boxes de pedidos na Cozinha */
+.cozinha-dashboard .card-body .card {
+  min-height: 280px;
+  max-height: 320px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.cozinha-dashboard .card-body .card .card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+}
+
+.cozinha-dashboard .card-body .card .card-header {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.cozinha-dashboard .card-body .card .list-group {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 120px;
+}
+
+.cozinha-dashboard .card-body .card .list-group-item {
+  padding: 6px 8px;
+  font-size: 0.85rem;
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cozinha-dashboard .card-body .card .btn {
+  margin-top: auto;
+  font-size: 0.85rem;
+  padding: 8px 12px;
+}
+
+.cozinha-dashboard .card-body .card p {
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+
+/* Métricas estilo dashboard */
+.metric-card .text-muted {
+  letter-spacing: 0.2px;
+}
+.metric-card h4 {
+  font-size: 1.15rem;
+}
+/* Alturas responsivas com base na altura da viewport */
+@media (max-height: 900px) {
+  .chart-card .card-body { min-height: 130px; }
+  .mini-chart { height: 80px; }
+  .dashboard-card .card-body { min-height: 96px; }
+}
+@media (max-height: 750px) {
+  .chart-card .card-body { min-height: 110px; }
+  .mini-chart { height: 70px; }
+  .dashboard-card .card-body { min-height: 88px; }
+}
+
+/* Paleta aplicada aos utilitários comuns (marca global) */
+.bg-primary { background-color: var(--brand-primary) !important; }
+.bg-success { background-color: var(--success) !important; }
+.bg-danger  { background-color: var(--critical) !important; }
+.bg-warning { background-color: var(--warning) !important; }
+.bg-secondary { background-color: var(--brand-secondary) !important; }
+.text-dark { color: var(--c-text) !important; }
+.text-white { color: #fff !important; }
+
+.btn-primary { background-color: var(--brand-primary); border-color: var(--brand-primary); }
+.btn-primary:hover { filter: brightness(0.92); }
+.btn-success { background-color: var(--success); border-color: var(--success); }
+.btn-success:hover { filter: brightness(0.92); }
+.btn-danger { background-color: var(--critical); border-color: var(--critical); }
+.btn-danger:hover { filter: brightness(0.92); }
+.btn-warning { background-color: var(--warning); border-color: var(--warning); color: #000; }
+.btn-warning:hover { filter: brightness(0.95); color: #000; }
+.btn-secondary { background-color: var(--brand-secondary); border-color: var(--brand-secondary); }
+.btn-secondary:hover { filter: brightness(0.92); }
+.btn-secondary:active { filter: brightness(0.85); }
+.btn-secondary:focus-visible { box-shadow: 0 0 0 0.2rem rgba(192,57,43,0.35); }
+
+/* Toggle de senha dentro do input */
+.password-toggle {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  line-height: 0;
+  cursor: pointer;
+}
+.password-toggle svg { width: 18px; height: 18px; }
+.password-toggle:hover { filter: brightness(0.9); }
+
+/* Tema azul/vermelho e cabeçalho do Restaurante */
+.restaurante-header {
+  background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-primary) 70%, var(--brand-secondary) 100%);
+  color: #fff;
+  padding: 16px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.restaurante-header .titulo {
+  margin: 0;
+  font-weight: 700;
+}
+.restaurante-header .subtitulo {
+  margin-top: 4px;
+  opacity: 0.9;
+}
+
+.qr-wrapper {
+  display: inline-block;
+  padding: 14px;
+  border: 3px solid var(--c-ocupado);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(72,129,105,0.25); /* disponível */
+}
+.qr-canvas {
+  display: block;
+}
+
+/* Footer padrão (não fixo) */
+.footer {
+  background: var(--footer-bg, #000);
+  color: var(--footer-text, #fff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: var(--footer-h);
+}
+
+/* Estilos para as abas do Restaurante */
+.nav-tabs .nav-link {
+  color: #6c757d;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-bottom: none;
+  font-weight: 500;
+  padding: 12px 20px;
+  transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover {
+  color: #0d6efd;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+
+.nav-tabs .nav-link.active {
+  color: #fff !important;
+  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%) !important;
+  border-color: var(--brand-primary) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.nav-tabs .nav-link.active:hover {
+  color: #fff !important;
+  filter: brightness(0.96);
+}
+
+/* Navbar com tema de marca */
+.navbar-theme {
+  background: var(--header-bg, #000);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1020;
+}
+.navbar-theme .nav-link { color: #fff; }
+.navbar-theme .navbar-brand { color: #fff; }
+.navbar-theme .btn-outline-light { border-color: rgba(255,255,255,0.7); color: #fff; }
+
+/* ----- Login centralizado e responsivo ----- */
+.login-wrapper {
+  min-height: calc(100vh - var(--header-h) - var(--footer-h));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.login-card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.login-card-header {
+  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+}
+.login-card .form-label { font-weight: 600; }
+.login-card .form-control { padding: 10px 12px; }
+@media (max-width: 576px) {
+  .login-card .card-body { padding: 16px; }
+}
+
+/* Cards compactos de quartos (PMS) */
+.quarto-card {
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 8px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+}
+.quarto-card .card-body {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+}
+.quarto-card h5.card-title {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+.quarto-card .card-text {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+.quarto-card .btn {
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  margin-top: auto;
+}
+
+/* Botão Detalhes mais destacado e deitado (largura total) */
+.quarto-card .detalhes-btn {
+  width: 100%;
+  display: block;
+  font-weight: 600;
+  border: none;
+  background-color: var(--pms-primary); /* terracota consistente com cabeçalho PMS */
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+.quarto-card .detalhes-btn:hover {
+  filter: brightness(0.92);
+  color: #fff;
+}
+.quarto-card .detalhes-btn:focus,
+.quarto-card .detalhes-btn:focus-visible {
+  outline: 2px solid rgba(0,0,0,0.15);
+  filter: brightness(0.9);
+}
+/* Botão de detalhes usa cor única de marca para manter harmonia */
+/* Diferenciar visualmente dos boxes superiores */
+.quarto-card.bg-success,
+.quarto-card.bg-danger,
+.quarto-card.bg-primary,
+.quarto-card.bg-warning {
+  background-color: #fff !important;
+  color: inherit !important;
+}
+.quarto-card.bg-success { border-left: 4px solid var(--success); }        /* disponível */
+.quarto-card.bg-danger  { border-left: 4px solid var(--brand-primary); }  /* ocupado */
+.quarto-card.bg-primary { border-left: 4px solid var(--pms-primary); }    /* reservado */
+.quarto-card.bg-warning { border-left: 4px solid var(--warning); }        /* manutenção */
+
+/* Badges de status nos cards PMS */
+.status-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.status-badge.badge-sm {
+  font-size: 0.7rem;
+  padding: 1px 6px;
+  line-height: 1.2;
+}
+.status-badge.disponivel { background-color: var(--success); color: #fff; }
+.status-badge.ocupado { background-color: var(--brand-primary); color: #fff; }
+.status-badge.reservado { background-color: var(--pms-primary); color: #fff; }
+.status-badge.manutencao { background-color: var(--warning); color: #000; }
+
+/* Consistência de foco para btn-secondary no tema PMS */
+.btn-secondary:focus,
+.btn-secondary:focus-visible {
+  filter: brightness(0.9);
+}
+
+/* Boxes superiores do PMS com paleta personalizada */
+.pms-box { border: none; border-radius: 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+.pms-box-disponivel { background-color: var(--pms-accent) !important; color: var(--pms-text-on) !important; }
+.pms-box-ocupado    { background-color: var(--pms-dark) !important;   color: var(--pms-text-on) !important; }
+.pms-box-reservado  { background-color: var(--pms-primary) !important; color: var(--pms-text-on) !important; }
+.pms-box-manutencao { background-color: var(--warning) !important;      color: #000 !important; }
+
+/* Cabeçalho destacado do PMS em vermelho */
+.pms-header {
+  background: linear-gradient(90deg, var(--pms-primary) 0%, var(--pms-accent) 100%);
+  color: var(--pms-text-on);
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(192,57,43,0.25);
+}
+
+/* Botão de detalhes com tema PMS */
+.quarto-card .detalhes-btn {
+  background-color: var(--pms-primary);
+}
+.quarto-card .detalhes-btn:hover {
+  filter: brightness(0.9);
+}
+
+/* Cabeçalho de perfil no Dashboard */
+.dashboard-profile {
+  padding: 10px 12px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+.dashboard-profile .profile-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #dee2e6;
+}
+/* Botões padronizados nos cards do Dashboard */
+.dashboard-card .btn {
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%) !important;
+  color: #fff !important;
+  border: 0 !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: filter 0.15s ease, transform 0.08s ease;
+}
+.dashboard-card .btn:hover { filter: brightness(0.98); }
+.dashboard-card .btn:active { transform: translateY(1px); }
+/* ----- PDV (Ponto de Vendas) ----- */
+.pdv-header {
+  background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.pdv-category .btn { margin-right: 8px; margin-bottom: 8px; }
+.pdv-category .btn.btn-secondary { background-color: var(--brand-secondary); border-color: var(--brand-secondary); }
+.pdv-category .btn.btn-outline-secondary { border-color: var(--brand-secondary); color: var(--brand-secondary); }
+.pdv-category .btn.btn-outline-secondary:hover { background-color: var(--brand-secondary); color: #fff; }
+
+.pdv-product-card .card { border: 1px solid var(--surface-border); }
+.pdv-product-card .card-body { padding: 12px; }
+.pdv-product-card .card-title { font-size: 1rem; margin-bottom: 4px; }
+.pdv-product-card .card-subtitle { font-size: 0.8rem; }
+.pdv-product-card .price-stock { display: flex; justify-content: space-between; align-items: center; margin: 6px 0 10px; }
+.pdv-product-card .price-tag { color: var(--brand-primary); font-weight: 700; }
+.badge-stock { background-color: var(--brand-tertiary); color: #000; border-radius: 999px; padding: 2px 8px; font-size: 0.75rem; }
+.pdv-product-card .add-btn { width: 100%; }
+
+.pdv-cart .card-body { padding: 12px; }
+.pdv-cart-item { padding: 8px 0; border-bottom: 1px dashed rgba(0,0,0,0.08); }
+.pdv-cart-item:last-child { border-bottom: none; }
+.pdv-cart .qty-btn { min-width: 28px; }
+.pdv-cart .total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+
+/* Alinhamento do cabeçalho de produtos e campo de busca */
+.pdv-header-input {
+  min-width: 260px;
+}
+
+@media (max-width: 576px) {
+  .pdv-header-input {
+    min-width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Regras de impressão: mostrar somente o carrinho do PDV */
+@media print {
+  /* Oculta navegação e rodapé para evitar páginas em branco */
+  .navbar, .navbar-theme, .footer { display: none !important; }
+  .modal-backdrop { display: none !important; }
+  .pdv-print .pdv-header,
+  .pdv-print .col-md-8,
+  .pdv-print .pdv-category,
+  .pdv-print .add-btn,
+  .pdv-print .qty-btn,
+  .pdv-print .form-select,
+  .pdv-print select,
+  .pdv-print .card-header .btn {
+    display: none !important;
+  }
+
+  /* Ocultar qualquer botão dentro do carrinho na impressão (inclui "Finalizar Venda") */
+  .pdv-print .pdv-cart button,
+  .pdv-print .pdv-cart .btn {
+    display: none !important;
+  }
+
+  /* Remover menu lateral e centralizar conteúdo na impressão */
+  .sidebar { display: none !important; }
+  .main-content.with-sidebar { margin-left: 0 !important; }
+  .app-row { justify-content: center !important; }
+  /* Centraliza a coluna do carrinho como recibo (80mm) */
+  .pdv-print .col-md-4 { width: 100% !important; max-width: 80mm; margin: 0 auto !important; float: none !important; }
+
+  .pdv-print .container-fluid {
+    padding: 0;
+  }
+
+  .pdv-print .card.pdv-cart {
+    border: none;
+    box-shadow: none;
+  }
+
+  .pdv-print .pdv-cart .card-body {
+    padding: 0;
+  }
+
+  .pdv-print .pdv-cart .total-row {
+    border-top: 1px solid #ccc;
+    padding-top: 8px;
+  }
+  .pdv-print .pdv-cart .total-row h5 {
+    font-size: 14pt;
+    font-weight: 800;
+  }
+
+  .pdv-print .print-header { 
+    display: block !important; 
+    margin-bottom: 12px; 
+  }
+
+  .pdv-print .print-subtotal {
+    display: block !important;
+  }
+}
+
+/* Esconder cabeçalho e subtotal de impressão na visualização normal */
+.print-header, .print-subtotal {
+  display: none;
+}
+
+@media print {
+  .pdv-print .print-footer {
+    display: block !important;
+    margin-top: 8px;
+    text-align: center;
+  }
+  /* Linha de itens estilo lista de compras */
+  .pdv-print .pdv-cart-item > .d-flex { display: none !important; }
+  .pdv-print .print-line { 
+    display: flex !important; 
+    align-items: baseline; 
+    font-family: "Courier New", Courier, monospace; 
+    font-size: 11pt; 
+    padding: 4px 0; 
+    page-break-inside: avoid; 
+  }
+  .pdv-print .print-line .item-name { flex: 0 1 auto; }
+  .pdv-print .print-line .dots { flex: 1 1 auto; border-bottom: 1px dotted #999; margin: 0 8px; }
+  .pdv-print .print-line .item-info { color: #555; margin-right: 8px; }
+  .pdv-print .print-line .item-subtotal { min-width: 90px; text-align: right; font-weight: 700; }
+}
+
+.print-footer { display: none; }
+
+/* Oculta a linha de impressão no modo normal */
+.print-line { display: none; }
+
+/* Busca com sugestões no PDV */
+.pdv-search-wrapper {
+  position: relative;
+}
+
+.pdv-suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 1050;
+  max-height: 260px;
+  overflow-y: auto;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+
+.pdv-suggestions .list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pdv-suggestions .item-left {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.pdv-suggestions .item-left small {
+  color: #6c757d;
+}
+
+.pdv-suggestions .suggest-add {
+  white-space: nowrap;
+}
+
+/* Destaque de busca com cor suave da marca */
+.search-highlight {
+  color: var(--brand-primary);
+  font-weight: 600;
+}
+.badge.bg-secondary { background-color: var(--brand-secondary) !important; }
+/* Página nomeada para recibo do PDV (80mm) */
+@page receipt {
+  size: 80mm portrait;
+  margin: 6mm;
+}
+.pdv-print { page: receipt; }
+/* Página de Eventos - melhorias visuais */
+.eventos-page .page-header h2 { font-weight: 700; }
+.eventos-page .eventos-header {
+  background-color: transparent;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  border: 0;
+}
+.eventos-page .eventos-header h5 { margin: 0; font-weight: 600; font-size: 1.1rem; }
+.eventos-page .eventos-header .btn { border-radius: 6px; }
+.eventos-page .eventos-header .eventos-add-btn,
+.eventos-page .eventos-header .eventos-calendar-btn { position: static; transform: none; }
+.eventos-page .eventos-header .eventos-add-btn { transition: background-color .15s ease, color .15s ease, box-shadow .15s ease; }
+.eventos-page .eventos-header .eventos-add-btn:hover { background-color: var(--brand-primary, #0d6efd); color: #fff; box-shadow: 0 2px 6px rgba(13,110,253,.25); }
+.eventos-page .eventos-header .eventos-add-btn svg { vertical-align: middle; }
+.eventos-page .eventos-header .input-group { max-width: 100%; }
+.eventos-page .eventos-header .btn { border-radius: 6px; }
+.eventos-page .list-group-item { border: 1px solid #e9ecef; border-radius: 8px; margin-bottom: 8px; }
+.eventos-page .list-group-item.active { background: var(--brand-primary); border-color: var(--brand-primary); color: #fff; }
+.eventos-page .list-group-item.active h6, .eventos-page .list-group-item.active small { color: #fff; }
+.eventos-page .list-group-item .btn { border-radius: 6px; }
+.eventos-page .list-group-item h6 { font-weight: 600; }
+.eventos-page .list-group-item small { color: #6c757d; }
+.eventos-page .alert-info { 
+  background-color: var(--brand-muted, #FDF6EC); 
+  border: 1px solid var(--brand-tertiary, #E1B382); 
+  color: var(--brand-primary, #5C4033);
+}
+/* Layout antigo com input-group foi removido da UI; manter overrides mínimos */
+.eventos-page .eventos-header .input-group { display: none; }
+/* Ícones por tipo */
+.eventos-page .evento-icon { color: var(--brand-secondary); display: inline-flex; align-items: center; }
+.eventos-page .evento-icon svg { width: 18px; height: 18px; }
+.eventos-page .list-group-item.active .evento-icon { color: #fff; }
+
+/* Cabeçalho de impressão oculto por padrão */
+.eventos-page .print-event-header { display: none; }
+
+/* Impressão da página de Eventos: foca no detalhe */
+@media print {
+  .eventos-page .page-header { display: none !important; }
+  .eventos-page.container-fluid, .eventos-page .container-fluid { padding-top: 0 !important; }
+  .eventos-page .row > .col-md-6:first-child { display: none !important; }
+  .eventos-page .row > .col-md-6:last-child { width: 100% !important; }
+  .eventos-page .card, .eventos-page .card-body { background: #fff !important; color: #000 !important; }
+  .eventos-page .card-header .btn { display: none !important; }
+  .eventos-page .status-controls, .eventos-page .form-select, .eventos-page .btn { display: none !important; }
+  .eventos-page .print-event-header { display: block !important; text-align: center; margin-bottom: 12px; }
+  .eventos-page .print-event-summary { display: block !important; margin-bottom: 12px; }
+  .eventos-page .card { break-inside: avoid; page-break-inside: avoid; }
+  .eventos-page table th:last-child, .eventos-page table td:last-child { display: none !important; }
+}
+/* (revert) sem altura mínima fixa nos cards */
+/* Altura mínima apenas para os cards de métricas do topo */
+.row.mb-4.equal-row .dashboard-card {
+  min-height: 160px;
+}
+
+/* Refinamento visual dos cards do dashboard */
+.dashboard-card {
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: transform 0.06s ease, box-shadow 0.2s ease;
+}
+.dashboard-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+/* Ajuste global para evitar scroll horizontal */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Padronização de badges de status de pedidos */
+.status-badge {
+  border-radius: 12px;
+  padding: 4px 10px;
+  font-size: 0.875rem;
+}
+.status-pendente { background-color: #6c757d; color: #fff; }
+.status-aceito { background-color: #0dcaf0; color: #112233; }
+.status-preparando { background-color: #ffc107; color: #112233; }
+.status-entregue { background-color: #198754; color: #fff; }
+.status-inactive { opacity: 0.65; }

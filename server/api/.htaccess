@@ -1,0 +1,12 @@
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Base de reescrita para subdiretório em HostGator
+  RewriteBase /repositories/sistema_de_hotelaria/server/api/
+
+  # Encaminhar todas as requisições para index.php, exceto arquivos/diretórios reais
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>

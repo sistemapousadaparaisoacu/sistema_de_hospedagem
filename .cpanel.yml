@@ -1,0 +1,47 @@
+# cPanel Git Deploy configuration
+# Este script roda ao clicar em "Deploy HEAD Commit" no Git Version Control do cPanel.
+# Em ambientes sem Node/npm disponível, ele apenas publica a pasta build/ em public_html.
+
+deployment:
+  tasks:
+    # Resolve home and deploy path (public_html)
+    - export HOME="${HOME:-/home/$(whoami)}"
+    - export DEPLOYPATH="$HOME/public_html/repositories/sistema_de_hotelaria"
+    - echo "Deploying to $DEPLOYPATH"
+    - mkdir -p "$DEPLOYPATH"
+
+    # Vars para build agnóstico ao domínio (subdiretório da SPA)
+    - export PUBLIC_URL="/repositories/sistema_de_hotelaria"
+    - export REACT_APP_API_BASE="/repositories/sistema_de_hotelaria/api"
+
+    # Build do frontend (se npm estiver disponível); caso contrário, continua usando build/ pré-gerado
+    - if command -v npm >/dev/null 2>&1; then npm ci && npm run build; else echo "npm indisponível neste ambiente; usando build/ existente"; fi
+
+    # Clean public_html (keep ACME path if any) and copy build
+    - find "$DEPLOYPATH" -mindepth 1 -maxdepth 1 -not -name ".well-known" -exec rm -rf {} +
+    - if [ -d build ]; then cp -a build/. "$DEPLOYPATH/"; else echo "Pasta build/ não encontrada. Gere o build localmente antes do deploy."; fi
+
+    # Fallback: se não houver build, publica página temporária para evitar 403
+    - if [ ! -d build ]; then echo "<!doctype html><html lang=\"pt-br\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Sistema de Hotelaria</title><style>body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;padding:2rem;max-width:720px;margin:auto}code{background:#f2f2f2;padding:.2rem .4rem;border-radius:4px}</style></head><body><h1>Deploy concluído</h1><p>O build do frontend não está disponível neste servidor.</p><p>Gere o build localmente ou ative a Node App e rode <code>npm ci && npm run build</code>.</p><p>Destino atual: <strong>$DEPLOYPATH</strong></p></body></html>" > "$DEPLOYPATH/index.html"; fi
+    - if [ -f public/.htaccess ]; then cp public/.htaccess "$DEPLOYPATH/.htaccess"; fi
+
+    # Publica a API PHP de proxy em public_html/repositories/sistema_de_hotelaria/server/api
+    - export API_DIR="$HOME/public_html/repositories/sistema_de_hotelaria/server/api"
+    - mkdir -p "$API_DIR"
+    - if [ -f server/api/index.php ]; then cp server/api/index.php "$API_DIR/index.php"; else echo "server/api/index.php não encontrado"; fi
+    - if [ -f server/api/.htaccess ]; then cp server/api/.htaccess "$API_DIR/.htaccess"; else echo "server/api/.htaccess não encontrado"; fi
+
+    # Permissões recomendadas
+    - chmod 0755 "$HOME/public_html/repositories/sistema_de_hotelaria" || true
+    - chmod 0755 "$HOME/public_html/repositories/sistema_de_hotelaria/server" || true
+    - chmod 0755 "$API_DIR" || true
+    - find "$DEPLOYPATH" -type d -exec chmod 0755 {} +
+    - find "$DEPLOYPATH" -type f -exec chmod 0644 {} +
+    - find "$HOME/public_html/repositories/sistema_de_hotelaria/server" -type d -exec chmod 0755 {} +
+    - find "$HOME/public_html/repositories/sistema_de_hotelaria/server" -type f -exec chmod 0644 {} +
+
+    # Dependências do servidor (opcional). Em hospedagem sem Node App, esta etapa é ignorada.
+    - if command -v npm >/dev/null 2>&1; then npm --prefix server ci || true; else echo "Ignorando dependências do servidor (sem Node/npm)"; fi
+
+    # Log deploy
+    - echo "$(date) - Deploy HEAD completed to $DEPLOYPATH (API em $API_DIR)" >> "$HOME/deploy.log"

@@ -1,0 +1,34 @@
+name: Retag v0.1.0 on main after merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  retag:
+    if: ${{ github.event.pull_request.merged == true && github.event.pull_request.head.ref == 'feat/access-qr-docs' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Update tag v0.1.0 to point to main HEAD
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const main = await github.rest.repos.getBranch({ owner, repo, branch: 'main' });
+            const sha = main.data.commit.sha;
+            try {
+              await github.rest.git.deleteRef({ owner, repo, ref: 'tags/v0.1.0' });
+              core.info('Tag v0.1.0 deletada para re-criação.');
+            } catch (e) {
+              core.info('Tag v0.1.0 não existia no remoto ou já removida.');
+            }
+            await github.rest.git.createRef({ owner, repo, ref: 'refs/tags/v0.1.0', sha });
+            core.summary.addHeading('Tag v0.1.0 atualizada em main');
+            await core.summary.write();

@@ -1,0 +1,42 @@
+DirectoryIndex index.html
+Options -Indexes
+Options +SymLinksIfOwnerMatch
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # App hospedada em subdiretório
+  RewriteBase /repositories/sistema_de_hotelaria/
+
+  # Alias público /api → encaminha para /server/api (contorna bloqueios em /server)
+  RewriteCond %{REQUEST_URI} ^/repositories/sistema_de_hotelaria/api [NC]
+  RewriteRule ^api(.*)$ server/api$1 [QSA,L]
+
+  # Se for arquivo ou diretório real, serve-o
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Não reescrever chamadas da API/proxy em /server/
+  # Isto evita que a SPA intercepte requisições destinadas ao PHP proxy
+  RewriteCond %{REQUEST_URI} ^/repositories/sistema_de_hotelaria/server/ [NC]
+  RewriteRule .* - [L]
+
+  # Caso contrário, entrega index.html (SPA React Router)
+  RewriteRule ^index\.html$ - [L]
+  RewriteRule . index.html [L]
+</IfModule>
+
+# Cache: assets com cache longo, index.html sem cache
+<IfModule mod_headers.c>
+  # Cache agressivo para assets versionados
+  <FilesMatch "\.(js|css|png|jpg|jpeg|gif|svg|ico|json|webp|woff|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Não cachear o HTML principal da SPA
+  <Files "index.html">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </Files>
+</IfModule>

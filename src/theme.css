@@ -1,0 +1,353 @@
+/* Tema global com variáveis e suporte a claro/escuro */
+:root {
+  --c-disponivel: #488169;
+  --c-ocupado: #4d4f4a;
+  --c-reservado: #536241;
+  --c-manutencao: #5e4531;
+  --c-header: var(--brand-primary); /* usa primária */
+  --header-bg: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+  --header-h: 48px;
+  --footer-h: 48px;
+  --footer-bg: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+  --footer-text: #F9F9F9;
+  --sidebar-w: 188px; /* largura padrão */
+  --sidebar-w-collapsed: 64px;
+  /* Superfícies padrão (modo claro) */
+  --surface: #FFFFFF;
+  --surface-border: rgba(0,0,0,0.08);
+  --surface-text: #2E2E2E;
+  /* Paleta específica para PMS (tema vermelho) */
+  --pms-primary: var(--brand-secondary);    /* terracota */
+  --pms-accent: var(--brand-tertiary);      /* bege dourado */
+  --pms-dark: var(--brand-primary);         /* chocolate escuro */
+  --pms-muted: var(--brand-quaternary);     /* fundo claro */
+  --pms-text-on: #ffffff;                   /* texto sobre fundo intenso */
+
+  --bg-body: #FFFBF5;  /* Fundo quase branco, tom quente */
+  --text-color: #2E2E2E;               /* Texto modo claro */
+  /* Tokens de status e acessibilidade */
+  --status-pendente: #f0ad4e;
+  --status-aceito: #0d6efd;
+  --status-preparando: #6f42c1;
+  --status-entregue: #198754;
+  --focus-ring: rgba(13,110,253,.35);
+}
+
+[data-theme="dark"] {
+  --bg-body: #2B2B2B;     /* Fundo escuro */
+  --text-color: #F9F9F9;  /* Texto claro */
+  /* Superfícies no modo escuro */
+  --surface: rgba(255,255,255,0.06);
+  --surface-border: rgba(255,255,255,0.10);
+  --surface-text: #F9F9F9;
+}
+
+body {
+  background-color: var(--bg-body);
+  color: var(--text-color);
+}
+
+/* Navbar temática - cor padrão global (usa variáveis de marca) */
+.navbar-theme {
+  background: var(--header-bg, linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-secondary) 100%)) !important;
+  min-height: var(--header-h);
+}
+
+/* Deixar o conteúdo interno do header mais compacto */
+.navbar-theme .container-fluid {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+/* Variante PMS para header e footer - menos contraste */
+.navbar-pms {
+  background: linear-gradient(90deg, var(--pms-dark) 0%, var(--pms-primary) 100%) !important;
+}
+.footer-pms {
+  background: linear-gradient(90deg, var(--pms-dark) 0%, var(--pms-primary) 100%) !important;
+  color: var(--pms-text-on) !important;
+}
+
+/* Header do PDV seguindo o modelo (vermelho forte) */
+.navbar-pdv {
+  background-color: #EA4333 !important;
+  color: var(--pms-text-on) !important;
+}
+
+/* Cabeçalhos padrão das páginas */
+.page-header {
+  background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-primary) 70%, var(--brand-secondary) 100%);
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 16px;
+}
+
+/* Largura padrão do sidebar e alinhamento dos itens */
+.sidebar {
+  width: var(--sidebar-w);
+  min-height: auto; /* evita conflito com posição fixa definida em App.css */
+  transition: background-color 0.15s ease;
+}
+.sidebar .nav .nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 6px 10px; /* reduz espaçamento vertical */
+  text-align: left;
+  transition: background-color 0.15s ease;
+}
+.sidebar .nav .nav-link.active {
+  background-color: rgba(255,255,255,0.18);
+  color: #fff !important;
+  border-radius: 6px;
+}
+
+/* Hover apenas com cor, sem expansão ou zoom */
+/* Mantido o hover de cor nas regras globais (.nav-link:hover) */
+
+/* Sidebar colapsada */
+.sidebar.collapsed {
+  width: 64px;
+}
+.sidebar.collapsed .nav .nav-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.sidebar .nav-icon {
+  display: inline-flex;
+  width: 16px; /* ícone menor */
+  height: 16px;
+  margin-right: 6px;
+  fill: currentColor;
+}
+.sidebar.collapsed .nav-icon {
+  margin-right: 0;
+}
+.sidebar.collapsed .nav-label {
+  display: none;
+}
+
+.sidebar.collapsed .sidebar-profile {
+  justify-content: center;
+}
+.sidebar.collapsed .sidebar-profile-text {
+  display: none;
+}
+/* Ocultar tipo de conta em modo colapsado para compactação */
+.sidebar.collapsed .sidebar-account-type { display: none; }
+
+/* Compactação adicional para caber sem scroll */
+.sidebar-profile { padding: 6px 10px; margin-top: 8px; }
+.sidebar-avatar { width: 28px; height: 28px; }
+.sidebar-profile-name { font-size: 0.85rem; }
+.sidebar-profile-cnpj { font-size: 0.7rem; white-space: nowrap; }
+.sidebar .nav-label { font-size: 0.9rem; }
+
+/* Avatar maior para destaque no topo da Sidebar */
+.sidebar-avatar-large {
+  width: 64px;
+  height: 64px;
+}
+.sidebar.collapsed .sidebar-avatar-large {
+  width: 40px;
+  height: 40px;
+}
+
+/* Sidebar modo compacto manual */
+.sidebar.compact {
+  width: 168px;
+}
+.sidebar.compact .nav .nav-link { padding: 4px 8px; }
+.sidebar.compact .nav-icon { width: 14px; height: 14px; margin-right: 6px; }
+.sidebar.compact .nav-label { font-size: 0.85rem; }
+.sidebar.compact .sidebar-avatar { width: 26px; height: 26px; }
+.sidebar.compact .sidebar-profile { padding: 4px 8px; }
+
+/* Acessibilidade: foco visível consistente */
+button:focus-visible,
+.btn:focus-visible,
+.nav-link:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Contraste de texto em blocos escuros/claros */
+.on-dark { color: #fff !important; }
+.on-light { color: #212529 !important; }
+/* Modo compacto em telas largas: reduzir largura e espaçamentos */
+@media (min-width: 1200px) {
+  :root { --sidebar-w: 168px; }
+  .sidebar .nav .nav-link { padding: 4px 8px; }
+  .sidebar .nav-icon { width: 14px; height: 14px; margin-right: 6px; }
+  .sidebar .nav-label { font-size: 0.85rem; }
+  .sidebar-avatar { width: 26px; height: 26px; }
+  .sidebar-profile { padding: 4px 8px; }
+  /* Em telas largas, manter avatar grande quando solicitado */
+  .sidebar-avatar-large { width: 64px; height: 64px; }
+}
+
+/* Modal do PMS — menor e organizado */
+.pms-modal-dialog {
+  max-width: 680px;
+}
+.pms-modal .modal-content {
+  border-radius: 10px;
+}
+.pms-modal .guest-card {
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+}
+.pms-modal .modal-body .form-label {
+  margin-bottom: 4px;
+}
+
+/* Resumo compacto no modal PMS */
+.pms-summary {
+  border: 1px solid var(--surface-border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.pms-summary .small { font-size: 0.8rem; }
+.pms-summary-periodo span { font-size: 0.9rem; }
+
+/* Acordeão de hóspedes no modal PMS */
+.pms-accordion {
+  border: none;
+}
+.pms-accordion .accordion-item {
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background: var(--surface);
+}
+.pms-accordion .accordion-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 10px 12px;
+  font-weight: 600;
+}
+.pms-accordion .accordion-toggle .chev {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+.pms-accordion .accordion-item.open .accordion-toggle .chev {
+  transform: rotate(90deg);
+}
+.pms-accordion .accordion-body {
+  display: none;
+  padding: 0 12px 12px 12px;
+}
+.pms-accordion .accordion-item.open .accordion-body {
+  display: block;
+}
+
+/* Ajustes de layout para mobile pequeno */
+@media (max-width: 576px) {
+  :root {
+    /* Sidebar mais estreita para evitar sobreposição exagerada */
+    --sidebar-w: 78vw;
+  }
+}
+
+/* Agenda (estilo Google) */
+.agenda-modal-dialog { width: 100vw; max-width: 100vw; margin: 0; }
+.agenda-modal-dialog .modal-content { border-radius: 0; height: 100vh; display: flex; flex-direction: column; }
+.agenda-modal-dialog .modal-body { overflow: auto; }
+.agenda-header { display:flex; align-items:center; justify-content:space-between; }
+.agenda-header .month-label { font-weight:600; font-size:1rem; color: var(--text-color); }
+.agenda-grid { display:grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+.agenda-week-header { display:grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+.agenda-week-header .col, .agenda-week-header div { text-align:center; color:#6c757d; }
+.agenda-cell { background: var(--surface, #fff); border: 1px solid var(--surface-border, #dee2e6); border-radius: 8px; min-height: 120px; padding: 6px; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+.agenda-cell:hover { box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+.agenda-cell.muted { background: #f8f9fa; }
+.agenda-cell.weekend { background: #f9fbff; }
+.agenda-cell .day-number { font-weight:600; font-size:0.9rem; }
+.agenda-cell.today .day-number { background: #0d6efd; color:#fff; border-radius: 999px; padding: 2px 8px; }
+.agenda-events { margin-top: 4px; display:flex; flex-direction:column; gap: 4px; }
+.agenda-event-chip { display:block; font-size: 0.75rem; padding: 2px 6px; border-left: 4px solid var(--chip-color, #1a73e8); background: color-mix(in srgb, var(--chip-color, #1a73e8) 12%, transparent); border-radius: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.agenda-event-more { font-size:0.7rem; color:#6c757d; }
+
+@media (max-width: 992px) {
+  /* já full-screen por padrão; regras mantidas */
+}
+
+/* Modal de eventos (adicionar/editar) — padronizado e centrado */
+.eventos-modal-dialog .modal-content { border-radius: 12px; }
+.eventos-modal-body .form-label { margin-bottom: 4px; }
+.eventos-modal-body .row { align-items: flex-end; }
+
+/* Agenda lateral (desktop) */
+.agenda-item.card { border-color: #e9ecef; }
+.agenda-item .small { line-height: 1.2; }
+.agenda-item .badge { font-size: 0.7rem; }
+/* Pulso do ícone de chat quando há não lidas */
+@keyframes chatPulse {
+  0% { box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.5); }
+  70% { box-shadow: 0 0 0 10px rgba(13, 110, 253, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(13, 110, 253, 0); }
+}
+.chat-pulse {
+  animation: chatPulse 1.4s ease-out infinite;
+}
+
+/* Badges de status padronizadas */
+.badge-status { color: #fff; font-weight: 600; }
+.badge-status.pendente { background-color: var(--status-pendente); }
+.badge-status.aceito { background-color: var(--status-aceito); }
+.badge-status.preparando { background-color: var(--status-preparando); }
+.badge-status.entregue { background-color: var(--status-entregue); }
+
+/* Toasts simples (não dependem de Bootstrap JS) */
+.toast-container-fixed {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.toast-card {
+  background: #fff;
+  color: var(--c-text, #212529);
+  border-radius: 8px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+  padding: 10px 12px;
+  min-width: 240px;
+  border-left: 4px solid var(--brand-primary, #0d6efd);
+}
+.toast-card.success { border-left-color: #198754; }
+.toast-card.error { border-left-color: #dc3545; }
+.toast-card.info { border-left-color: #0d6efd; }
+.toast-message { font-size: 0.95rem; }
+
+/* Skeleton loaders */
+.skeleton {
+  position: relative;
+  background: #e9ecef;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer 1.25s infinite;
+}
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}

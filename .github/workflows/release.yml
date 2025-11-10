@@ -1,0 +1,40 @@
+name: Publish Release on tag
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Generate release notes for tag
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const tag = process.env.GITHUB_REF_NAME; // e.g. v0.1.0
+            const changelog = fs.readFileSync('CHANGELOG.md', 'utf8');
+            const header = `## ${tag}`;
+            const start = changelog.indexOf(header);
+            if (start === -1) {
+              core.warning(`Seção ${header} não encontrada; usando CHANGELOG completo.`);
+              fs.writeFileSync('RELEASE_NOTES.md', changelog);
+            } else {
+              const after = changelog.slice(start);
+              const endIdx = after.indexOf('\n## ', header.length);
+              const section = endIdx === -1 ? after : after.slice(0, endIdx);
+              fs.writeFileSync('RELEASE_NOTES.md', section.trim());
+            }
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: RELEASE_NOTES.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

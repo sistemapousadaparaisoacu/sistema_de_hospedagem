@@ -1,0 +1,20 @@
+node_modules/
+server/node_modules/
+
+# Env files (não versionar credenciais locais)
+.env
+.env.*
+.env.local
+!.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Builds/artefatos
+build/
+dist/
+build_extract/
+build.zip

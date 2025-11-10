@@ -1,0 +1,40 @@
+name: Open PR from feat/access-qr-docs
+
+on:
+  push:
+    branches:
+      - feat/access-qr-docs
+  workflow_dispatch:
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Create or reuse PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('.github/pull_request_template.md', 'utf8');
+            const { owner, repo } = context.repo;
+            const head = 'feat/access-qr-docs';
+            const base = 'main';
+            const title = 'feat: WhatsApp override/fallback padronizado + PDV validado';
+
+            // Check if an open PR already exists for this branch
+            const prs = await github.rest.pulls.list({ owner, repo, state: 'open', head: `${owner}:${head}`, base });
+            if (prs.data && prs.data.length > 0) {
+              const url = prs.data[0].html_url;
+              core.summary.addHeading('PR já existente');
+              core.summary.addRaw(url);
+              await core.summary.write();
+              return;
+            }
+
+            // Create PR
+            const created = await github.rest.pulls.create({ owner, repo, title, head, base, body });
+            core.summary.addHeading('PR criado');
+            core.summary.addRaw(created.data.html_url);
+            await core.summary.write();

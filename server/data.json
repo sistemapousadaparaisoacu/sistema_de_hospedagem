@@ -1,0 +1,1045 @@
+{
+  "config": {
+    "logoDataUrl": "data:image/jpeg;base64,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",
+    "calendarSummary": "Eventos"
+  },
+  "modules": {
+    "pms": true,
+    "pdv": true,
+    "estoque": true,
+    "eventos": true,
+    "financeiro": true,
+    "restaurante": true
+  },
+  "orders": [
+    {
+      "id": 7026,
+      "pedidoId": 7026,
+      "quarto": "Orquídea",
+      "localEntrega": "mesa",
+      "itens": [
+        "1x Vinho Tinto",
+        "1x Refrigerante",
+        "1x Bruschetta",
+        "1x Tiramisu",
+        "1x Picanha",
+        "1x Filé Mignon"
+      ],
+      "total": "372.90",
+      "status": "entregue",
+      "observacoes": "",
+      "horario": "01:10",
+      "criadoEm": "01:10:11",
+      "whatsappPrincipal": "",
+      "createdAt": "2025-11-07T04:10:11.672Z",
+      "aceitoPor": "admin",
+      "aceitoEm": "01:14",
+      "updatedAt": "2025-11-08T15:20:20.432Z",
+      "preparandoPor": "admin",
+      "preparandoEm": "01:47",
+      "finalizado": true
+    },
+    {
+      "id": 4808,
+      "pedidoId": 4808,
+      "quarto": "Rosa",
+      "localEntrega": "quarto",
+      "itens": [
+        "1x Risoto de Funghi",
+        "1x Bruschetta",
+        "1x Refrigerante",
+        "1x Suco Natural",
+        "1x Vinho Tinto",
+        "1x Filé Mignon",
+        "1x Salmão Grelhado"
+      ],
+      "total": "408.40",
+      "status": "entregue",
+      "observacoes": "",
+      "horario": "01:37",
+      "criadoEm": "01:37:24",
+      "whatsappPrincipal": "11987654321",
+      "createdAt": "2025-11-07T04:37:24.203Z",
+      "aceitoPor": "admin",
+      "aceitoEm": "01:40",
+      "updatedAt": "2025-11-08T15:20:17.748Z",
+      "preparandoPor": "admin",
+      "preparandoEm": "01:47",
+      "finalizado": true
+    },
+    {
+      "id": 9445,
+      "pedidoId": 9445,
+      "quarto": "Rosa",
+      "localEntrega": "quarto",
+      "itens": [
+        "1x Picanha",
+        "1x Bruschetta",
+        "1x Espaguete à Carbonara",
+        "1x Tiramisu"
+      ],
+      "total": "213.00",
+      "status": "entregue",
+      "observacoes": "teste",
+      "horario": "01:39",
+      "criadoEm": "01:39:42",
+      "whatsappPrincipal": "21997914496",
+      "createdAt": "2025-11-07T04:39:42.329Z",
+      "aceitoPor": "admin",
+      "aceitoEm": "01:44",
+      "updatedAt": "2025-11-08T15:20:24.734Z",
+      "preparandoPor": "admin",
+      "preparandoEm": "01:48",
+      "finalizado": true
+    },
+    {
+      "id": 1608,
+      "pedidoId": 1608,
+      "quarto": "Cravo",
+      "localEntrega": "quarto",
+      "itens": [
+        "1x Risoto de Funghi",
+        "1x Bruschetta",
+        "1x Espaguete à Carbonara",
+        "1x Tiramisu",
+        "1x Suco Natural",
+        "1x Vinho Tinto"
+      ],
+      "total": "318.00",
+      "status": "entregue",
+      "observacoes": "teste teste",
+      "horario": "01:44",
+      "criadoEm": "01:44:32",
+      "whatsappPrincipal": "",
+      "createdAt": "2025-11-07T04:44:32.920Z",
+      "aceitoPor": "admin",
+      "aceitoEm": "01:46",
+      "updatedAt": "2025-11-08T15:20:15.803Z",
+      "preparandoPor": "admin",
+      "preparandoEm": "01:48",
+      "finalizado": true
+    },
+    {
+      "id": 8948,
+      "pedidoId": 8948,
+      "quarto": "Hortênsia",
+      "localEntrega": "quarto",
+      "itens": [
+        "1x Filé Mignon",
+        "1x Risoto de Funghi",
+        "1x Salmão Grelhado"
+      ],
+      "total": "233.40",
+      "status": "entregue",
+      "observacoes": "",
+      "horario": "14:18",
+      "criadoEm": "14:18:48",
+      "whatsappPrincipal": "",
+      "createdAt": "2025-11-08T17:18:48.309Z",
+      "aceitoPor": "admin",
+      "aceitoEm": "14:20",
+      "updatedAt": "2025-11-08T23:23:28.918Z",
+      "preparandoPor": "admin",
+      "preparandoEm": "14:20",
+      "finalizado": true
+    },
+    {
+      "id": 8573,
+      "pedidoId": 8573,
+      "quarto": "Zínia",
+      "localEntrega": "quarto",
+      "itens": [
+        "1x Salmão Grelhado",
+        "1x Salada Caesar",
+        "1x Risoto de Funghi"
+      ],
+      "total": "185.50",
+      "status": "entregue",
+      "observacoes": "",
+      "horario": "14:21",
+      "criadoEm": "14:21:36",
+      "whatsappPrincipal": "",
+      "createdAt": "2025-11-08T17:21:36.169Z",
+      "aceitoPor": "admin",
+      "aceitoEm": "14:21",
+      "updatedAt": "2025-11-08T23:23:26.784Z",
+      "preparandoPor": "admin",
+      "preparandoEm": "20:23",
+      "finalizado": true
+    },
+    {
+      "id": 1111,
+      "pedidoId": 1111,
+      "quarto": "Frésia",
+      "localEntrega": "mesa",
+      "itens": [
+        "1x Filé Mignon",
+        "1x Salmão Grelhado"
+      ],
+      "total": "168.40",
+      "status": "entregue",
+      "observacoes": "",
+      "horario": "14:53",
+      "criadoEm": "14:53:00",
+      "whatsappPrincipal": "",
+      "createdAt": "2025-11-08T17:53:00.748Z",
+      "aceitoPor": "admin",
+      "aceitoEm": "20:23",
+      "updatedAt": "2025-11-08T23:24:07.099Z",
+      "preparandoPor": "admin",
+      "preparandoEm": "20:23",
+      "finalizado": true
+    },
+    {
+      "id": 6710,
+      "pedidoId": 6710,
+      "quarto": "Gardênia",
+      "localEntrega": "quarto",
+      "itens": [
+        "1x Filé Mignon",
+        "1x Salada Caesar"
+      ],
+      "total": "131.90",
+      "status": "preparando",
+      "observacoes": "",
+      "horario": "21:04",
+      "criadoEm": "21:04:59",
+      "whatsappPrincipal": "",
+      "createdAt": "2025-11-09T00:04:59.973Z",
+      "aceitoPor": "admin",
+      "aceitoEm": "21:06",
+      "updatedAt": "2025-11-09T00:26:10.173Z",
+      "preparandoPor": "admin",
+      "preparandoEm": "21:26"
+    }
+  ],
+  "sales": [],
+  "inventory": [],
+  "events": [
+    {
+      "id": 1,
+      "nome": "Conferência Empresarial",
+      "data": "2023-05-15",
+      "horaInicio": "09:00",
+      "horaFim": "18:00",
+      "local": "Salão Principal",
+      "capacidade": 100,
+      "participantes": [
+        {
+          "id": 1,
+          "nome": "João Silva",
+          "email": "joao@email.com",
+          "telefone": "(11) 98765-4321",
+          "status": "confirmado"
+        },
+        {
+          "id": 2,
+          "nome": "Maria Santos",
+          "email": "maria@email.com",
+          "telefone": "(11) 91234-5678",
+          "status": "confirmado"
+        },
+        {
+          "id": 3,
+          "nome": "Pedro Alves",
+          "email": "pedro@email.com",
+          "telefone": "(11) 99876-5432",
+          "status": "pendente"
+        }
+      ],
+      "descricao": "Conferência anual para discussão de estratégias empresariais.",
+      "createdAt": "2025-11-07T00:35:25.568Z",
+      "status": "cancelado",
+      "updatedAt": "2025-11-10T21:23:33.519Z",
+      "tipo": "Aniversário"
+    },
+    {
+      "id": 2,
+      "nome": "Casamento Silva & Costa",
+      "data": "2023-06-20",
+      "horaInicio": "19:00",
+      "horaFim": "02:00",
+      "local": "Salão de Festas",
+      "capacidade": 150,
+      "participantes": [
+        {
+          "id": 1,
+          "nome": "Carlos Mendes",
+          "email": "carlos@email.com",
+          "telefone": "(11) 97777-8888",
+          "status": "confirmado"
+        },
+        {
+          "id": 2,
+          "nome": "Ana Costa",
+          "email": "ana@email.com",
+          "telefone": "(11) 96666-7777",
+          "status": "confirmado"
+        }
+      ],
+      "descricao": "Cerimônia de casamento seguida de recepção.",
+      "createdAt": "2025-11-07T00:35:25.575Z",
+      "tipo": "Casamento",
+      "updatedAt": "2025-11-10T21:23:33.537Z"
+    },
+    {
+      "id": 3,
+      "nome": "Workshop de Culinária",
+      "data": "2023-05-10",
+      "horaInicio": "14:00",
+      "horaFim": "17:00",
+      "local": "Cozinha Industrial",
+      "capacidade": 30,
+      "participantes": [
+        {
+          "id": 1,
+          "nome": "Luiza Ferreira",
+          "email": "luiza@email.com",
+          "telefone": "(11) 95555-6666",
+          "status": "confirmado"
+        },
+        {
+          "id": 2,
+          "nome": "Roberto Gomes",
+          "email": "roberto@email.com",
+          "telefone": "(11) 94444-5555",
+          "status": "pendente"
+        },
+        {
+          "id": 3,
+          "nome": "Teresa Vieira",
+          "email": "teresa@email.com",
+          "telefone": "(11) 93333-4444",
+          "status": "confirmado"
+        },
+        {
+          "id": 4,
+          "nome": "Fernando Lima",
+          "email": "fernando@email.com",
+          "telefone": "(11) 92222-3333",
+          "status": "confirmado"
+        }
+      ],
+      "descricao": "Workshop de culinária italiana com chef renomado.",
+      "createdAt": "2025-11-07T00:35:25.580Z",
+      "tipo": "Aniversário",
+      "updatedAt": "2025-11-10T21:23:33.552Z"
+    },
+    {
+      "id": 4,
+      "nome": "teste",
+      "tipo": "Casamento",
+      "data": "2025-11-29",
+      "horaInicio": "21:41",
+      "horaFim": "22:41",
+      "local": "teste",
+      "capacidade": 8,
+      "participantes": [],
+      "descricao": "teste",
+      "status": "confirmado",
+      "createdAt": "2025-11-07T00:42:05.740Z"
+    }
+  ],
+  "transactions": [],
+  "rooms": [
+    {
+      "id": 1,
+      "nome": "Orquídea",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:57.962Z"
+    },
+    {
+      "id": 2,
+      "nome": "Rosa",
+      "status": "ocupado",
+      "hospedes": [
+        {
+          "nome": "João Silva",
+          "cpf": "123.456.789-00",
+          "whatsapp": "21997914496"
+        }
+      ],
+      "checkIn": "2023-04-10",
+      "checkOut": "2023-04-15",
+      "createdAt": "2025-11-07T01:07:57.965Z",
+      "whatsappPrincipal": "21997914496",
+      "updatedAt": "2025-11-07T04:38:35.645Z"
+    },
+    {
+      "id": 3,
+      "nome": "Tulipa",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:57.967Z"
+    },
+    {
+      "id": 6,
+      "nome": "Lírio",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:57.971Z"
+    },
+    {
+      "id": 4,
+      "nome": "Girassol",
+      "status": "reservado",
+      "hospedes": [
+        {
+          "nome": "Maria Santos",
+          "cpf": "987.654.321-00",
+          "whatsapp": "11912345678"
+        }
+      ],
+      "checkIn": "2023-04-20",
+      "checkOut": "2023-04-25",
+      "createdAt": "2025-11-07T01:07:57.975Z"
+    },
+    {
+      "id": 5,
+      "nome": "Margarida",
+      "status": "manutenção",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:57.977Z"
+    },
+    {
+      "id": 7,
+      "nome": "Violeta",
+      "status": "ocupado",
+      "hospedes": [
+        {
+          "nome": "Pedro Alves",
+          "cpf": "111.222.333-44",
+          "whatsapp": "11955556666"
+        }
+      ],
+      "checkIn": "2023-04-08",
+      "checkOut": "2023-04-12",
+      "createdAt": "2025-11-07T01:07:57.979Z"
+    },
+    {
+      "id": 8,
+      "nome": "Cravo",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:57.981Z"
+    },
+    {
+      "id": 9,
+      "nome": "Azaleia",
+      "status": "reservado",
+      "hospedes": [
+        {
+          "nome": "Ana Costa",
+          "cpf": "444.555.666-77",
+          "whatsapp": "11977778888"
+        }
+      ],
+      "checkIn": "2023-04-18",
+      "checkOut": "2023-04-22",
+      "createdAt": "2025-11-07T01:07:57.983Z"
+    },
+    {
+      "id": 10,
+      "nome": "Begônia",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:57.985Z"
+    },
+    {
+      "id": 11,
+      "nome": "Camélia",
+      "status": "ocupado",
+      "hospedes": [
+        {
+          "nome": "Carlos Mendes",
+          "cpf": "888.999.000-11",
+          "whatsapp": "11933334444"
+        }
+      ],
+      "checkIn": "2023-04-05",
+      "checkOut": "2023-04-15",
+      "createdAt": "2025-11-07T01:07:57.987Z"
+    },
+    {
+      "id": 12,
+      "nome": "Dália",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:57.989Z"
+    },
+    {
+      "id": 13,
+      "nome": "Frésia",
+      "status": "manutenção",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.039Z",
+      "checkInHora": "",
+      "checkOutHora": "",
+      "formaPagamento": "",
+      "whatsappPrincipal": "",
+      "updatedAt": "2025-11-08T15:49:48.402Z"
+    },
+    {
+      "id": 14,
+      "nome": "Gardênia",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:57.995Z"
+    },
+    {
+      "id": 15,
+      "nome": "Hortênsia",
+      "status": "ocupado",
+      "hospedes": [
+        {
+          "nome": "Luiza Ferreira",
+          "cpf": "222.333.444-55",
+          "whatsapp": "11944445555"
+        }
+      ],
+      "checkIn": "2023-04-07",
+      "checkOut": "2023-04-14",
+      "createdAt": "2025-11-07T01:07:57.997Z"
+    },
+    {
+      "id": 16,
+      "nome": "Íris",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.000Z"
+    },
+    {
+      "id": 17,
+      "nome": "Jasmim",
+      "status": "reservado",
+      "hospedes": [
+        {
+          "nome": "Roberto Gomes",
+          "cpf": "555.666.777-88",
+          "whatsapp": "11966667777"
+        }
+      ],
+      "checkIn": "2023-04-25",
+      "checkOut": "2023-04-30",
+      "createdAt": "2025-11-07T01:07:58.002Z"
+    },
+    {
+      "id": 18,
+      "nome": "Lavanda",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.004Z"
+    },
+    {
+      "id": 19,
+      "nome": "Magnólia",
+      "status": "ocupado",
+      "hospedes": [
+        {
+          "nome": "Teresa Vieira",
+          "cpf": "999.000.111-22",
+          "whatsapp": "11922223333"
+        }
+      ],
+      "checkIn": "2023-04-09",
+      "checkOut": "2023-04-16",
+      "createdAt": "2025-11-07T01:07:58.008Z"
+    },
+    {
+      "id": 20,
+      "nome": "Narciso",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.010Z"
+    },
+    {
+      "id": 21,
+      "nome": "Petúnia",
+      "status": "reservado",
+      "hospedes": [
+        {
+          "nome": "Fernando Lima",
+          "cpf": "333.444.555-66",
+          "whatsapp": "11911112222"
+        }
+      ],
+      "checkIn": "2023-04-22",
+      "checkOut": "2023-04-27",
+      "createdAt": "2025-11-07T01:07:58.013Z"
+    },
+    {
+      "id": 22,
+      "nome": "Zínia",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.015Z"
+    },
+    {
+      "id": 1,
+      "nome": "Orquídea",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.017Z"
+    },
+    {
+      "id": 2,
+      "nome": "Rosa",
+      "status": "ocupado",
+      "hospedes": [
+        {
+          "nome": "João Silva",
+          "cpf": "123.456.789-00",
+          "whatsapp": "11987654321"
+        }
+      ],
+      "checkIn": "2023-04-10",
+      "checkOut": "2023-04-15",
+      "createdAt": "2025-11-07T01:07:58.019Z"
+    },
+    {
+      "id": 3,
+      "nome": "Tulipa",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.020Z"
+    },
+    {
+      "id": 4,
+      "nome": "Girassol",
+      "status": "reservado",
+      "hospedes": [
+        {
+          "nome": "Maria Santos",
+          "cpf": "987.654.321-00",
+          "whatsapp": "11912345678"
+        }
+      ],
+      "checkIn": "2023-04-20",
+      "checkOut": "2023-04-25",
+      "createdAt": "2025-11-07T01:07:58.022Z"
+    },
+    {
+      "id": 5,
+      "nome": "Margarida",
+      "status": "manutenção",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.024Z"
+    },
+    {
+      "id": 6,
+      "nome": "Lírio",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.027Z"
+    },
+    {
+      "id": 7,
+      "nome": "Violeta",
+      "status": "ocupado",
+      "hospedes": [
+        {
+          "nome": "Pedro Alves",
+          "cpf": "111.222.333-44",
+          "whatsapp": "11955556666"
+        }
+      ],
+      "checkIn": "2023-04-08",
+      "checkOut": "2023-04-12",
+      "createdAt": "2025-11-07T01:07:58.029Z"
+    },
+    {
+      "id": 8,
+      "nome": "Cravo",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.031Z"
+    },
+    {
+      "id": 9,
+      "nome": "Azaleia",
+      "status": "reservado",
+      "hospedes": [
+        {
+          "nome": "Ana Costa",
+          "cpf": "444.555.666-77",
+          "whatsapp": "11977778888"
+        }
+      ],
+      "checkIn": "2023-04-18",
+      "checkOut": "2023-04-22",
+      "createdAt": "2025-11-07T01:07:58.032Z"
+    },
+    {
+      "id": 10,
+      "nome": "Begônia",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.034Z"
+    },
+    {
+      "id": 11,
+      "nome": "Camélia",
+      "status": "ocupado",
+      "hospedes": [
+        {
+          "nome": "Carlos Mendes",
+          "cpf": "888.999.000-11",
+          "whatsapp": "11933334444"
+        }
+      ],
+      "checkIn": "2023-04-05",
+      "checkOut": "2023-04-15",
+      "createdAt": "2025-11-07T01:07:58.036Z"
+    },
+    {
+      "id": 12,
+      "nome": "Dália",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.038Z"
+    },
+    {
+      "id": 13,
+      "nome": "Frésia",
+      "status": "manutenção",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.039Z"
+    },
+    {
+      "id": 14,
+      "nome": "Gardênia",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.042Z"
+    },
+    {
+      "id": 15,
+      "nome": "Hortênsia",
+      "status": "ocupado",
+      "hospedes": [
+        {
+          "nome": "Luiza Ferreira",
+          "cpf": "222.333.444-55",
+          "whatsapp": "11944445555"
+        }
+      ],
+      "checkIn": "2023-04-07",
+      "checkOut": "2023-04-14",
+      "createdAt": "2025-11-07T01:07:58.045Z"
+    },
+    {
+      "id": 16,
+      "nome": "Íris",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.047Z"
+    },
+    {
+      "id": 17,
+      "nome": "Jasmim",
+      "status": "reservado",
+      "hospedes": [
+        {
+          "nome": "Roberto Gomes",
+          "cpf": "555.666.777-88",
+          "whatsapp": "11966667777"
+        }
+      ],
+      "checkIn": "2023-04-25",
+      "checkOut": "2023-04-30",
+      "createdAt": "2025-11-07T01:07:58.048Z"
+    },
+    {
+      "id": 18,
+      "nome": "Lavanda",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.050Z"
+    },
+    {
+      "id": 19,
+      "nome": "Magnólia",
+      "status": "ocupado",
+      "hospedes": [
+        {
+          "nome": "Teresa Vieira",
+          "cpf": "999.000.111-22",
+          "whatsapp": "11922223333"
+        }
+      ],
+      "checkIn": "2023-04-09",
+      "checkOut": "2023-04-16",
+      "createdAt": "2025-11-07T01:07:58.052Z"
+    },
+    {
+      "id": 20,
+      "nome": "Narciso",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.054Z"
+    },
+    {
+      "id": 21,
+      "nome": "Petúnia",
+      "status": "reservado",
+      "hospedes": [
+        {
+          "nome": "Fernando Lima",
+          "cpf": "333.444.555-66",
+          "whatsapp": "11911112222"
+        }
+      ],
+      "checkIn": "2023-04-22",
+      "checkOut": "2023-04-27",
+      "createdAt": "2025-11-07T01:07:58.056Z"
+    },
+    {
+      "id": 22,
+      "nome": "Zínia",
+      "status": "disponível",
+      "hospedes": [],
+      "checkIn": "",
+      "checkOut": "",
+      "createdAt": "2025-11-07T01:07:58.059Z"
+    }
+  ],
+  "chat": [
+    {
+      "id": 1,
+      "text": "oi",
+      "fromName": "admin",
+      "fromSector": "administrador",
+      "toSector": "cozinha",
+      "createdAt": "2025-11-07T05:12:44.512Z"
+    },
+    {
+      "id": 2,
+      "text": "oi",
+      "fromName": "coz",
+      "fromSector": "cozinha",
+      "toSector": "administrador",
+      "createdAt": "2025-11-07T05:12:44.520Z"
+    },
+    {
+      "id": 3,
+      "text": "oi",
+      "fromName": "admin",
+      "fromSector": "administrador",
+      "toSector": "cozinha",
+      "createdAt": "2025-11-07T05:12:44.529Z"
+    },
+    {
+      "id": 4,
+      "text": "ew",
+      "fromName": "admin",
+      "fromSector": "administrador",
+      "toSector": "cozinha",
+      "createdAt": "2025-11-07T05:12:44.533Z"
+    },
+    {
+      "id": 5,
+      "text": "oi",
+      "fromName": "admin",
+      "fromSector": "administrador",
+      "toSector": "cozinha",
+      "createdAt": "2025-11-07T05:12:44.538Z"
+    },
+    {
+      "id": 6,
+      "text": "oi",
+      "fromName": "coz",
+      "fromSector": "cozinha",
+      "toSector": "administrador",
+      "createdAt": "2025-11-07T05:14:11.409Z"
+    },
+    {
+      "id": 7,
+      "text": "kkkk",
+      "fromName": "admin",
+      "fromSector": "administrador",
+      "toSector": "cozinha",
+      "createdAt": "2025-11-07T05:14:26.100Z"
+    },
+    {
+      "id": 8,
+      "text": "uhull7l",
+      "fromName": "coz",
+      "fromSector": "cozinha",
+      "toSector": "administrador",
+      "createdAt": "2025-11-07T05:14:40.497Z"
+    },
+    {
+      "id": 9,
+      "text": "oi",
+      "fromName": "admin",
+      "fromSector": "administrador",
+      "toSector": "cozinha",
+      "createdAt": "2025-11-08T00:15:22.524Z"
+    },
+    {
+      "id": 10,
+      "text": "oi",
+      "fromName": "admin",
+      "fromSector": "administrador",
+      "toSector": "cozinha",
+      "createdAt": "2025-11-08T00:15:22.530Z"
+    },
+    {
+      "id": 11,
+      "text": "oi",
+      "fromName": "coz",
+      "fromSector": "cozinha",
+      "toSector": "administrador",
+      "createdAt": "2025-11-08T15:15:48.062Z"
+    },
+    {
+      "id": 12,
+      "text": "oi",
+      "fromName": "coz",
+      "fromSector": "cozinha",
+      "toSector": "administrador",
+      "createdAt": "2025-11-08T15:15:48.066Z"
+    },
+    {
+      "id": 13,
+      "text": "oi",
+      "fromName": "coz",
+      "fromSector": "cozinha",
+      "toSector": "cozinha",
+      "createdAt": "2025-11-08T15:16:04.231Z"
+    },
+    {
+      "id": 14,
+      "text": "tudo bem?",
+      "fromName": "admin",
+      "fromSector": "administrador",
+      "toSector": "cozinha",
+      "createdAt": "2025-11-08T15:16:26.056Z"
+    },
+    {
+      "id": 15,
+      "text": "Oioi",
+      "fromName": "admin",
+      "fromSector": "administrador",
+      "toSector": "cozinha",
+      "createdAt": "2025-11-08T17:23:00.012Z"
+    },
+    {
+      "id": 16,
+      "text": "Oioi",
+      "fromName": "admin",
+      "fromSector": "administrador",
+      "toSector": "administrador",
+      "createdAt": "2025-11-08T17:23:25.398Z"
+    },
+    {
+      "id": 17,
+      "text": "Te amo",
+      "fromName": "admin",
+      "fromSector": "administrador",
+      "toSector": "administrador",
+      "createdAt": "2025-11-08T17:23:30.829Z"
+    },
+    {
+      "id": 18,
+      "text": "oieeee",
+      "fromName": "admin",
+      "fromSector": "administrador",
+      "toSector": "administrador",
+      "createdAt": "2025-11-08T17:23:32.904Z"
+    },
+    {
+      "id": 19,
+      "text": "tb te amooo",
+      "fromName": "admin",
+      "fromSector": "administrador",
+      "toSector": "administrador",
+      "createdAt": "2025-11-08T17:23:39.032Z"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "nome": "Administrador",
+      "usuario": "admin",
+      "senha": "admin",
+      "papel": "administrador",
+      "createdAt": "2025-11-08T17:29:53.480Z"
+    },
+    {
+      "id": 2,
+      "nome": "Cozinha",
+      "usuario": "coz",
+      "senha": "coz",
+      "papel": "cozinha",
+      "createdAt": "2025-11-08T23:20:57.228Z"
+    },
+    {
+      "id": 3,
+      "nome": "Gerente",
+      "usuario": "ger",
+      "senha": "ger",
+      "papel": "gerente",
+      "createdAt": "2025-11-08T23:21:13.830Z"
+    },
+    {
+      "id": 4,
+      "nome": "Balcão",
+      "usuario": "bal",
+      "senha": "bal",
+      "papel": "garcom",
+      "createdAt": "2025-11-08T23:21:30.862Z"
+    }
+  ]
+}
