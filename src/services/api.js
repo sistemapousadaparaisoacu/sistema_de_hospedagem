@@ -1,15 +1,34 @@
 // Auto-detect API base: env var → localStorage → common localhost ports
 let ACTIVE_BASE = null;
+
+const isHttps = typeof window !== 'undefined' && window.location.protocol === 'https:';
+
+const getSafeEnvBase = () => {
+  const env = process.env.REACT_APP_API_BASE;
+  // Se estiver em HTTPS, ignora localhost
+  if (isHttps && env && env.includes('localhost')) return null;
+  return env;
+};
+
+const getSafeLocalStorage = () => {
+  if (typeof window === 'undefined' || !window.localStorage) return null;
+  const saved = window.localStorage.getItem('api_base');
+  // Se estiver em HTTPS, ignora localhost salvo
+  if (isHttps && saved && saved.includes('localhost')) return null;
+  return saved;
+};
+
 const CANDIDATES = [
-  process.env.REACT_APP_API_BASE,
-  // Se estiver rodando na Vercel (https), prioriza rota relativa /api para evitar erro de Mixed Content/Private Network
-  (typeof window !== 'undefined' && window.location.protocol === 'https:' ? '/api' : null),
-  (typeof window !== 'undefined' && window.localStorage ? window.localStorage.getItem('api_base') : null),
+  getSafeEnvBase(),
+  // Se estiver rodando na Vercel (https), prioriza rota relativa /api
+  (isHttps ? '/api' : null),
+  getSafeLocalStorage(),
   '/api', 
   (typeof window !== 'undefined' ? `http://${window.location.hostname}:3020/api` : null),
   (typeof window !== 'undefined' ? `http://${window.location.hostname}:5000/api` : null),
-  'http://localhost:3020/api',
-  'http://localhost:5000/api',
+  // Apenas inclui localhost nos candidatos se NÃO estiver em HTTPS
+  (!isHttps ? 'http://localhost:3020/api' : null),
+  (!isHttps ? 'http://localhost:5000/api' : null),
 ].filter(Boolean);
 
 export async function ping(base) {
