@@ -35,8 +35,8 @@ export async function resolveBase() {
       return ACTIVE_BASE;
     }
   }
-  // Fallback to first candidate even se ping falhar (permite ambientes sem /health)
-  ACTIVE_BASE = CANDIDATES[0] || 'http://localhost:3020/api';
+  // Fallback seguro
+  ACTIVE_BASE = CANDIDATES[0] || (isHttps ? '/api' : 'http://localhost:3020/api');
   try { localStorage.setItem('api_base', ACTIVE_BASE); } catch {}
   return ACTIVE_BASE;
 }
