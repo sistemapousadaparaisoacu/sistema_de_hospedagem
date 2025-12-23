@@ -96,7 +96,17 @@ const Configuracoes = () => {
     try {
       const saved = localStorage.getItem('api_base');
       const fromEnv = process.env.REACT_APP_API_BASE;
-      const initial = saved || fromEnv || '';
+      
+      let initial = saved || fromEnv;
+      
+      // FORÇAR /api se estiver em ambiente seguro (HTTPS/Vercel) para evitar erro de Mixed Content
+      if (window.location.protocol === 'https:' && (!initial || initial.includes('localhost'))) {
+        initial = '/api';
+      } else if (!initial) {
+        // Fallback apenas para desenvolvimento local
+        initial = 'http://localhost:3020/api';
+      }
+
       setApiBaseInput(String(initial));
     } catch {
       // ignore
