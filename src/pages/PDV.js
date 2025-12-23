@@ -104,7 +104,7 @@ const PDV = () => {
               const nome = item.nome || item.name || '';
               const found = byName(nome);
               const preco = Number(item.preco ?? item.price ?? (found ? found.preco : 0));
-              const estoque = Number(item.estoque ?? item.stock ?? (found ? found.estoque : 0));
+              const estoque = Number(item.estoque ?? item.stock ?? item.quantidade ?? (found ? found.estoque : 0));
               const categoria = item.categoria || item.category || (found ? found.categoria : 'Outros');
               if (found) {
                 Object.assign(found, { preco, estoque, categoria });
