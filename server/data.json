@@ -211,6 +211,22 @@
       "updatedAt": "2025-11-09T00:26:10.173Z",
       "preparandoPor": "admin",
       "preparandoEm": "21:26"
+    },
+    {
+      "id": 1412,
+      "pedidoId": 1412,
+      "quarto": "Magnólia",
+      "localEntrega": "mesa",
+      "itens": [
+        "1x Salmão Grelhado"
+      ],
+      "total": "78.50",
+      "status": "pendente",
+      "observacoes": "",
+      "horario": "12:03",
+      "criadoEm": "12:03:34",
+      "whatsappPrincipal": "21997914496",
+      "createdAt": "2025-12-23T15:03:35.216Z"
     }
   ],
   "sales": [],
@@ -250,7 +266,7 @@
       "descricao": "Conferência anual para discussão de estratégias empresariais.",
       "createdAt": "2025-11-07T00:35:25.568Z",
       "status": "cancelado",
-      "updatedAt": "2025-11-10T21:23:33.519Z",
+      "updatedAt": "2025-12-23T14:59:57.832Z",
       "tipo": "Aniversário"
     },
     {
@@ -280,7 +296,7 @@
       "descricao": "Cerimônia de casamento seguida de recepção.",
       "createdAt": "2025-11-07T00:35:25.575Z",
       "tipo": "Casamento",
-      "updatedAt": "2025-11-10T21:23:33.537Z"
+      "updatedAt": "2025-12-23T14:59:57.848Z"
     },
     {
       "id": 3,
@@ -323,7 +339,7 @@
       "descricao": "Workshop de culinária italiana com chef renomado.",
       "createdAt": "2025-11-07T00:35:25.580Z",
       "tipo": "Aniversário",
-      "updatedAt": "2025-11-10T21:23:33.552Z"
+      "updatedAt": "2025-12-23T14:59:57.851Z"
     },
     {
       "id": 4,

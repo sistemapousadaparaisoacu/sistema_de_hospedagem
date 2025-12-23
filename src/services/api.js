@@ -3,8 +3,6 @@ let ACTIVE_BASE = null;
 const CANDIDATES = [
   process.env.REACT_APP_API_BASE,
   (typeof window !== 'undefined' && window.localStorage ? window.localStorage.getItem('api_base') : null),
-  // Produção: alias público /api da SPA
-  (typeof window !== 'undefined' ? `${window.location.origin}/repositories/sistema_de_hotelaria/api` : null),
   (typeof window !== 'undefined' ? `http://${window.location.hostname}:3020/api` : null),
   (typeof window !== 'undefined' ? `http://${window.location.hostname}:5000/api` : null),
   'http://localhost:3020/api',

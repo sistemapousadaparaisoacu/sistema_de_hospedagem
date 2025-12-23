@@ -1,6 +1,5 @@
--- Schema inicial para integração MySQL (HostGator)
+-- Schema inicial para integração MySQL
 -- Ajuste nomes/colunas conforme sua necessidade antes de aplicar.
--- Crie o banco e o usuário no cPanel e execute este script.
 
 SET NAMES utf8mb4;
 SET time_zone = '+00:00';
