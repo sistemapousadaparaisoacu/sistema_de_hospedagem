@@ -2,19 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { api, Resources } from '../services/api';
 
 const Stocks = () => {
-  // Estado inicial dos produtos em estoque
-  const [produtos, setProdutos] = useState([
-    { id: 1, nome: 'Toalha', categoria: 'Quarto', quantidade: 50, minimo: 20, unidade: 'un' },
-    { id: 2, nome: 'Sabonete', categoria: 'Higiene', quantidade: 15, minimo: 30, unidade: 'un' },
-    { id: 3, nome: 'Shampoo', categoria: 'Higiene', quantidade: 25, minimo: 20, unidade: 'un' },
-    { id: 4, nome: 'Papel Higiênico', categoria: 'Higiene', quantidade: 40, minimo: 30, unidade: 'rolos' },
-    { id: 5, nome: 'Lençol', categoria: 'Quarto', quantidade: 35, minimo: 20, unidade: 'un' },
-    { id: 6, nome: 'Travesseiro', categoria: 'Quarto', quantidade: 18, minimo: 15, unidade: 'un' },
-    { id: 7, nome: 'Água Mineral', categoria: 'Bebidas', quantidade: 80, minimo: 50, unidade: 'garrafas' },
-    { id: 8, nome: 'Refrigerante', categoria: 'Bebidas', quantidade: 45, minimo: 30, unidade: 'latas' },
-    { id: 9, nome: 'Café', categoria: 'Alimentos', quantidade: 10, minimo: 15, unidade: 'kg' },
-    { id: 10, nome: 'Açúcar', categoria: 'Alimentos', quantidade: 8, minimo: 10, unidade: 'kg' },
-  ]);
+  // Estado inicial vazio - carrega do backend
+  const [produtos, setProdutos] = useState([]);
 
   const [produtoEditando, setProdutoEditando] = useState(null);
   const [novoProduto, setNovoProduto] = useState({
@@ -34,11 +23,11 @@ const Stocks = () => {
     (async () => {
       try {
         const list = await api.list(Resources.Inventory);
-        if (isMounted && Array.isArray(list) && list.length > 0) {
+        if (isMounted && Array.isArray(list)) {
           setProdutos(list);
         }
       } catch {
-        // Mantém seed local caso backend indisponível
+        // Falha silenciosa ou retry
       }
     })();
     // SSE: atualizações instantâneas do recurso inventory
