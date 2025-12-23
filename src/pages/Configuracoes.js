@@ -179,7 +179,9 @@ const Configuracoes = () => {
   const sanitizeApiBase = (value) => {
     const v = String(value || '').trim();
     if (!v) return '';
-    // garante http(s)
+    // Permite caminhos relativos (ex: /api)
+    if (v.startsWith('/')) return v;
+    // garante http(s) para URLs absolutas
     const withProtocol = v.startsWith('http://') || v.startsWith('https://') ? v : `http://${v}`;
     // garante /api no final
     return withProtocol.endsWith('/api') ? withProtocol : `${withProtocol.replace(/\/$/, '')}/api`;
