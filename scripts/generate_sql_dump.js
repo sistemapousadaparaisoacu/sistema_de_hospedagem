@@ -96,7 +96,12 @@ function generateAppSettings(config, modules) {
 
   const inserts = [];
   if (config) {
-    inserts.push(`INSERT INTO app_settings (category, data) VALUES ('config', '${JSON.stringify(config).replace(/'/g, "''")}') ON CONFLICT (category) DO UPDATE SET data = EXCLUDED.data;`);
+    // Remove logoDataUrl to avoid large SQL query errors and JSON syntax issues
+    const configClean = { ...config };
+    if (configClean.logoDataUrl) {
+      delete configClean.logoDataUrl;
+    }
+    inserts.push(`INSERT INTO app_settings (category, data) VALUES ('config', '${JSON.stringify(configClean).replace(/'/g, "''")}') ON CONFLICT (category) DO UPDATE SET data = EXCLUDED.data;`);
   }
   if (modules) {
     inserts.push(`INSERT INTO app_settings (category, data) VALUES ('modules', '${JSON.stringify(modules).replace(/'/g, "''")}') ON CONFLICT (category) DO UPDATE SET data = EXCLUDED.data;`);
