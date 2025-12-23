@@ -70,6 +70,7 @@ export const api = {
   create: (resource, payload) => req(`/${resource}`, { method: 'POST', body: JSON.stringify(payload) }),
   update: (resource, id, payload) => req(`/${resource}/${id}`, { method: 'PUT', body: JSON.stringify(payload) }),
   remove: (resource, id) => req(`/${resource}/${id}`, { method: 'DELETE' }),
+  clear: (resource) => req(`/${resource}`, { method: 'DELETE' }),
 };
 
 export const Resources = {

@@ -58,7 +58,13 @@ function readDataLocal() {
 }
 
 function writeDataLocal(data) {
-  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+  try {
+    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+    return true;
+  } catch (e) {
+    console.error('Error writing data.json:', e.message);
+    return false;
+  }
 }
 
 // Helpers Supabase
@@ -298,6 +304,27 @@ function registerCrud(key) {
       writeDataLocal(data);
       res.json(updated);
       broadcast({ resource: key, action: 'update', item: updated });
+    }
+  });
+
+  app.delete(`/api/${key}`, async (req, res) => {
+    if (supabase) {
+      try {
+        // Supabase exige um filtro para delete. Usamos id > 0 para limpar tudo.
+        const { error } = await supabase.from(key).delete().gt('id', 0);
+        if (error) throw error;
+        res.json({ ok: true, removed: 'all' });
+        broadcast({ resource: key, action: 'clear' });
+      } catch (e) { res.status(500).json({ error: e.message }); }
+    } else {
+      const data = readDataLocal();
+      data[key] = [];
+      if (writeDataLocal(data)) {
+        res.json({ ok: true, removed: 'all' });
+        broadcast({ resource: key, action: 'clear' });
+      } else {
+        res.status(500).json({ error: 'write_failed' });
+      }
     }
   });
 

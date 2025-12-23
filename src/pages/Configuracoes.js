@@ -16,6 +16,7 @@ const Configuracoes = () => {
   const [logoPreview, setLogoPreview] = useState('');
   const [calendarSummary, setCalendarSummary] = useState('Eventos');
   const [kitchenAvgMinutes, setKitchenAvgMinutes] = useState(25);
+  const [chatEnabled, setChatEnabled] = useState(true);
   const [msgNew, setMsgNew] = useState('');
   const [msgAccepted, setMsgAccepted] = useState('');
   const [msgPreparing, setMsgPreparing] = useState('');
@@ -32,6 +33,7 @@ const Configuracoes = () => {
   const [apiStatus, setApiStatus] = useState('idle'); // idle | testing | online | offline | error
   const [apiMessage, setApiMessage] = useState('');
   const [savingBranding, setSavingBranding] = useState(false);
+  const [clearingChat, setClearingChat] = useState(false);
   const [savingApiBase, setSavingApiBase] = useState(false);
 
   useEffect(() => {
@@ -43,6 +45,7 @@ const Configuracoes = () => {
         if (isMounted && cfg?.logoDataUrl) setLogoPreview(cfg.logoDataUrl);
         if (isMounted && cfg?.calendarSummary) setCalendarSummary(cfg.calendarSummary);
         if (isMounted && typeof cfg?.kitchenAvgMinutes !== 'undefined') setKitchenAvgMinutes(Number(cfg.kitchenAvgMinutes) || 25);
+        if (isMounted && typeof cfg?.chatEnabled !== 'undefined') setChatEnabled(!!cfg.chatEnabled);
         if (isMounted && typeof cfg?.msgNew !== 'undefined') setMsgNew(cfg.msgNew || '');
         if (isMounted && typeof cfg?.msgAccepted !== 'undefined') setMsgAccepted(cfg.msgAccepted || '');
         if (isMounted && typeof cfg?.msgPreparing !== 'undefined') setMsgPreparing(cfg.msgPreparing || '');
@@ -111,8 +114,39 @@ const Configuracoes = () => {
     reader.readAsDataURL(file);
   };
 
+  const handleClearChat = async () => {
+    if (!window.confirm('Tem certeza que deseja limpar todo o histórico do chat? Essa ação não pode ser desfeita.')) return;
+    try {
+      setClearingChat(true);
+      await api.clear('chat');
+      window.dispatchEvent(new CustomEvent('toast', { detail: { type: 'success', message: 'Chat limpo com sucesso.' } }));
+    } catch (e) {
+      console.error('Erro ao limpar chat:', e);
+      window.dispatchEvent(new CustomEvent('toast', { detail: { type: 'error', message: `Erro ao limpar chat: ${e.message}` } }));
+    } finally {
+      setClearingChat(false);
+    }
+  };
+
   const handleSaveBranding = async () => {
-    const cfg = { logoDataUrl: logoPreview, calendarSummary, kitchenAvgMinutes, msgNew, msgAccepted, msgPreparing, msgDelivered, msgNewQuarto, msgNewMesa, msgAcceptedQuarto, msgAcceptedMesa, msgPreparingQuarto, msgPreparingMesa, msgDeliveredQuarto, msgDeliveredMesa };
+    const cfg = { 
+      logoDataUrl: logoPreview, 
+      calendarSummary, 
+      kitchenAvgMinutes, 
+      chatEnabled,
+      msgNew, 
+      msgAccepted, 
+      msgPreparing, 
+      msgDelivered, 
+      msgNewQuarto, 
+      msgNewMesa, 
+      msgAcceptedQuarto, 
+      msgAcceptedMesa, 
+      msgPreparingQuarto, 
+      msgPreparingMesa, 
+      msgDeliveredQuarto, 
+      msgDeliveredMesa 
+    };
     try {
       setSavingBranding(true);
       await api.updateConfig(cfg);
@@ -249,6 +283,27 @@ const Configuracoes = () => {
                 />
                 <small className="text-muted">Usado para estimar e informar previsões nos avisos do WhatsApp.</small>
               </div>
+              <div className="mb-3">
+                <div className="form-check form-switch">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="toggle-chat"
+                    checked={chatEnabled}
+                    onChange={(e) => setChatEnabled(e.target.checked)}
+                  />
+                  <label className="form-check-label" htmlFor="toggle-chat">
+                    Ativar Chat Geral
+                  </label>
+                </div>
+                <div className="mt-2">
+                  <button className="btn btn-sm btn-outline-danger" onClick={handleClearChat} disabled={clearingChat}>
+                    {clearingChat ? 'Limpando...' : 'Limpar Histórico do Chat'}
+                  </button>
+                </div>
+                <small className="text-muted d-block mt-1">Habilita/desabilita ou limpa as mensagens do chat.</small>
+              </div>
+
               <div className="mb-3">
                 <label className="form-label">Mensagens do WhatsApp</label>
                 <small className="text-muted d-block mb-2">Use tokens: {`{local}`} {`{itens}`} {`{total}`} {`{horario}`} {`{previsao}`} {`{restante}`} {`{link}`} {`{numeroPedido}`} {`{responsavel}`}</small>

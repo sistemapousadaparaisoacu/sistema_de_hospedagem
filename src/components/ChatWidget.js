@@ -17,6 +17,7 @@ export default function ChatWidget() {
   const [feedback, setFeedback] = useState(null);
   const [filterMySector, setFilterMySector] = useState(true);
   const [unread, setUnread] = useState(0);
+  const [enabled, setEnabled] = useState(true);
   const user = useMemo(() => {
     try { return JSON.parse(localStorage.getItem('auth_user') || 'null'); } catch { return null; }
   }, []);
@@ -46,6 +47,32 @@ export default function ChatWidget() {
 
   useEffect(() => {
     let mounted = true;
+    const fetchConfig = async () => {
+      try {
+        const cfg = await api.getConfig();
+        if (mounted && typeof cfg?.chatEnabled !== 'undefined') {
+          setEnabled(!!cfg.chatEnabled);
+        }
+      } catch {}
+    };
+    fetchConfig();
+    
+    const handleConfigUpdate = (e) => {
+      const cfg = e.detail;
+      if (cfg && typeof cfg.chatEnabled !== 'undefined') {
+        setEnabled(!!cfg.chatEnabled);
+      }
+    };
+    window.addEventListener('config_updated', handleConfigUpdate);
+    return () => {
+      mounted = false;
+      window.removeEventListener('config_updated', handleConfigUpdate);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return;
+    let mounted = true;
     const load = async () => {
       try {
         const list = await api.list(Resources.Chat);
@@ -74,7 +101,7 @@ export default function ChatWidget() {
     flushOutbox();
     const id = setInterval(() => { load(); flushOutbox(); }, 4000);
     return () => { mounted = false; clearInterval(id); };
-  }, []);
+  }, [enabled]);
 
   // Atualiza contador de não lidas quando chegam novas mensagens
   useEffect(() => {
@@ -158,7 +185,7 @@ export default function ChatWidget() {
     setUnread(0);
   };
 
-  if (!user || !loggedIn) return null; // apenas logado
+  if (!user || !loggedIn || !enabled) return null; // apenas logado e ativado
 
   return (
     <div style={{ position: 'fixed', right: 16, bottom: 16, zIndex: 1050 }}>

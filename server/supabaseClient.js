@@ -1,4 +1,10 @@
-require('dotenv').config();
+const path = require('path');
+// Tenta carregar do diretório atual ou do pai (raiz do projeto)
+require('dotenv').config({ path: path.resolve(__dirname, '.env') });
+if (!process.env.SUPABASE_URL) {
+  require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+}
+
 const { createClient } = require('@supabase/supabase-js');
 
 const supabaseUrl = process.env.SUPABASE_URL;
