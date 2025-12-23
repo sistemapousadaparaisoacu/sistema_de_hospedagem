@@ -95,8 +95,13 @@ const Configuracoes = () => {
   useEffect(() => {
     try {
       const saved = localStorage.getItem('api_base');
-      const fromEnv = process.env.REACT_APP_API_BASE;
+      let fromEnv = process.env.REACT_APP_API_BASE;
       
+      // BLINDAGEM: Se estiver no Vercel (HTTPS), ignora qualquer env var que aponte para localhost
+      if (window.location.protocol === 'https:' && fromEnv && fromEnv.includes('localhost')) {
+        fromEnv = null;
+      }
+
       let initial = saved || fromEnv;
       
       // FORÇAR /api se estiver em ambiente seguro (HTTPS/Vercel) para evitar erro de Mixed Content
