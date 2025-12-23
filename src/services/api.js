@@ -2,8 +2,10 @@
 let ACTIVE_BASE = null;
 const CANDIDATES = [
   process.env.REACT_APP_API_BASE,
+  // Se estiver rodando na Vercel (https), prioriza rota relativa /api para evitar erro de Mixed Content/Private Network
+  (typeof window !== 'undefined' && window.location.protocol === 'https:' ? '/api' : null),
   (typeof window !== 'undefined' && window.localStorage ? window.localStorage.getItem('api_base') : null),
-  '/api', // Prioriza rota relativa (ideal para Vercel/mesmo domínio)
+  '/api', 
   (typeof window !== 'undefined' ? `http://${window.location.hostname}:3020/api` : null),
   (typeof window !== 'undefined' ? `http://${window.location.hostname}:5000/api` : null),
   'http://localhost:3020/api',
