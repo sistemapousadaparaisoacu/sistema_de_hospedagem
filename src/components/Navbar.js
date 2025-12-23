@@ -27,7 +27,7 @@ const Navbar = ({ loggedIn, currentUser, onLogout, onToggleSidebar, onToggleSide
               </span>
             </button>
           )}
-          <Link className="navbar-brand text-white navbar-brand-centered" to="/">TechBox - Sistema de Hospedagem</Link>
+          <Link className="navbar-brand text-white navbar-brand-centered" to="/">Sistema de Hospedagem</Link>
         </div>
         {/* Nav direita: exibe tipo de login e ações */}
         <div className="navbar-collapse" id="navbarNav">

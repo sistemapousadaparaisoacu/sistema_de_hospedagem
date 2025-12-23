@@ -197,7 +197,7 @@ const Eventos = () => {
       const lines = [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
-        'PRODID:-//TechBox//Gestao de Eventos//PT-BR',
+        'PRODID:-//Sistema de Hospedagem//Gestao de Eventos//PT-BR',
         'CALSCALE:GREGORIAN',
         'METHOD:PUBLISH',
         'BEGIN:VEVENT',

@@ -3,6 +3,7 @@ let ACTIVE_BASE = null;
 const CANDIDATES = [
   process.env.REACT_APP_API_BASE,
   (typeof window !== 'undefined' && window.localStorage ? window.localStorage.getItem('api_base') : null),
+  '/api', // Prioriza rota relativa (ideal para Vercel/mesmo domínio)
   (typeof window !== 'undefined' ? `http://${window.location.hostname}:3020/api` : null),
   (typeof window !== 'undefined' ? `http://${window.location.hostname}:5000/api` : null),
   'http://localhost:3020/api',

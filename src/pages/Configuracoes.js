@@ -33,7 +33,6 @@ const Configuracoes = () => {
   const [apiMessage, setApiMessage] = useState('');
   const [savingBranding, setSavingBranding] = useState(false);
   const [savingApiBase, setSavingApiBase] = useState(false);
-  const [qrTab, setQrTab] = useState('acesso'); // acesso | gerador
 
   useEffect(() => {
     let isMounted = true;
@@ -359,23 +358,13 @@ const Configuracoes = () => {
             </div>
           </div>
           <div className="card mt-4">
-            <div className="card-header d-flex align-items-center justify-content-between">
-              <strong>QR Code</strong>
-              <div className="btn-group btn-group-sm" role="group" aria-label="Seleção de aba QR">
-                <button type="button" className={`btn ${qrTab === 'acesso' ? 'btn-primary' : 'btn-outline-primary'}`} onClick={() => setQrTab('acesso')}>Acesso</button>
-                <button type="button" className={`btn ${qrTab === 'gerador' ? 'btn-primary' : 'btn-outline-primary'}`} onClick={() => setQrTab('gerador')}>Gerador de Pedido</button>
-              </div>
+            <div className="card-header">
+              <strong>QR Code (Gerador de Pedido)</strong>
             </div>
             <div className="card-body">
-              {qrTab === 'acesso' ? (
-                <div className="qr-settings-embed">
-                  <QRCodeAcesso />
-                </div>
-              ) : (
-                <div className="qr-settings-embed">
-                  <QRCodeGenerator />
-                </div>
-              )}
+              <div className="qr-settings-embed">
+                <QRCodeGenerator />
+              </div>
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-# TechBox — Sistema Hoteleiro
+# Sistema de Hospedagem
 
 Sistema completo para gestão hoteleira, com módulos de PMS (Quartos), PDV (Vendas), Estoque, Eventos, Financeiro e Restaurante, além de relatórios e configurações de marca (logo).
 

@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className="footer text-white mt-auto">
       <div className="container-fluid py-3 text-center">
-        <div className="fw-semibold">TechBox ® - Sistema Hoteleiro</div>
+        <div className="fw-semibold">Sistema Hoteleiro - Caroline Brand ®</div>
       </div>
     </footer>
   );

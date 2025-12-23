@@ -253,7 +253,7 @@ const Dashboard = ({ currentUser }) => {
         <div className="d-flex flex-column flex-md-row align-items-center justify-content-between">
           <div className="d-flex align-items-center">
             <div className="text-center text-md-start">
-              <h2 className="text-white mb-2">Bem-vindo ao TechBox - Sistema Hoteleiro</h2>
+              <h2 className="text-white mb-2">Bem-vindo ao Sistema de Hospedagem</h2>
               <p className="text-white-50 mb-0">Acompanhe desempenho, ocupação e receita em tempo real.</p>
             </div>
           </div>

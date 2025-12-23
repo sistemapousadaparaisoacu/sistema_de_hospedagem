@@ -55,14 +55,6 @@ const Login = ({ onLogin }) => {
                   />
                 </div>
                 <button type="submit" className="btn btn-primary w-100">Entrar</button>
-                <div className="mt-3 text-center">
-                  <Link to="/acesso" className="btn btn-outline-secondary w-100" aria-label="Acesso (QR)" title="Acesso (QR)">
-                    <span className="me-1" aria-hidden>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3V3Zm2 2v4h4V5H5Zm8-2h8v8h-8V3Zm2 2v4h4V5h-4ZM3 13h8v8H3v-8Zm2 2v4h4v-4H5Zm10 0h2v2h-2v-2Zm4 0h2v2h-2v-2Zm-4 4h2v2h-2v-2Zm4 0h2v2h-2v-2Z"/></svg>
-                    </span>
-                    Acesso (QR)
-                  </Link>
-                </div>
               </form>
             </div>
           </div>

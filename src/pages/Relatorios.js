@@ -221,7 +221,7 @@ const Relatorios = () => {
       const danger = (styles.getPropertyValue('--bs-danger') || '#dc3545').trim();
 
       const doc = new jsPDF({ orientation: 'p', unit: 'pt', format: 'a4' });
-      doc.setProperties({ title: 'Relatórios', subject: 'Resumo e detalhes', creator: 'TechBox' });
+      doc.setProperties({ title: 'Relatórios', subject: 'Resumo e detalhes', creator: 'Sistema de Hospedagem' });
 
       // Header limpo em fundo branco: logo, nome e CNPJ
       const pageW = doc.internal.pageSize.getWidth();
